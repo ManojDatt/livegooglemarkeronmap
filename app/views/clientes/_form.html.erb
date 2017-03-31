@@ -1,0 +1,192 @@
+<section class="content">
+    <div class="box-body">
+
+        <%= form_for(cliente, :validate => true, html: {class: 'form-horizontal'}) do |f| %>
+        <% if cliente.errors.any? %>
+        <div id="error_explanation">
+            <h2><%= pluralize(cliente.errors.count, "error") %>
+                prohibited this cliente from being saved:</h2>
+
+            <ul>
+                <% cliente.errors.full_messages.each do |message| %>
+                <li><%= message %></li>
+                <% end %>
+            </ul>
+        </div>
+        <% end %>
+
+        <div class="row">
+            <div class="col-md-12" style="text-align: right;">
+                <%= f.submit :class=>"btn btn-md btn-primary", :value=>"Guardar" %>
+                <%= link_to 'Cancelar', clientes_path, :class=>"btn btn-md btn-default cancelbtn" %>
+            </div>
+
+        </div>
+
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label>NOMBRE O RAZON SOCIAL</label>
+                    <%= f.text_field :NOMBRE, :class=>"form-control" %>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="form-group">
+                    <label>LISTA DE PRECIOS</label>
+                    <%= f.collection_select :PKLISTA, ListasPrecio.order(:LIS_DESCRIPCION), :PKLISTA, :LIS_DESCRIPCION %>
+                </div>
+            </div>
+            <div class="col-md-6">
+                &nbsp;
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label>DOMICILIO</label>
+                            <%= f.text_field :DOMICILIO, :class=>"form-control" %>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="row">
+
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label>COLONIA</label>
+                            <%= f.text_field :COLONIA, :class=>"form-control" %>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label>RFC</label>
+                            <%= f.text_field :RFC, :class=>"form-control" %>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label>ESTADO</label>
+                            <%= f.collection_select :PKESTADO, Estado.order(:EDO_DESCRIPCION), :PKESTADO, :EDO_DESCRIPCION %>
+
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label>CIUDAD</label>
+
+                            <%= f.select :PKCIUDAD, Ciudade.all.map {|c| [c.CD_NOMBRE, c.PKCIUDAD, {:'data-PKESTADO' => c.PKESTADO }]} %>
+
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="row">
+
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label>CP</label>
+                            <%= f.text_field :CP, :class=>"form-control" %>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label>TELEFONO DE CONTACTO 1</label>
+                            <%= f.text_field :CONTACTO_TELEFONO1, onkeypress: "return isNumber(event)",  :class=>"form-control numeric" %>
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="row">
+
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label>%IVA</label>
+                            <%= f.text_field :IVA_PORCENTAJE, onkeypress: "return isFloat(event)", :class=>"form-control" %>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label>TELEFONO DE CONTACTO 2</label>
+                            <%= f.text_field :CONTACTO_TELEFONO2, onkeypress: "return isNumber(event)", :class=>"form-control numeric" %>
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="row">
+
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label>%RETENCION IVA</label>
+                            <%= f.text_field :RETENCION_IVA_PORCENTAJE, onkeypress: "return isFloat(event)", :class=>"form-control" %>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label>TELEFONO DE CONTACTO 3</label>
+                            <%= f.text_field :CONTACTO_TELEFONO3, onkeypress: "return isNumber(event)", :class=>"form-control numeric" %>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+            <div class="col-md-6">
+                <%= render 'Map' %>
+            </div>
+        </div>
+        <% end %>
+        <!-- /.row -->
+    </div>
+</section>
+<script type="text/javascript">
+    $(document).ready(function () {
+        $("#cliente_PKESTADO").addClass("form-control");
+        $("#cliente_PKCIUDAD").addClass("form-control");
+        $("#cliente_PKLISTA").addClass("form-control");
+    });
+
+    var cities;
+    cities = $('#cliente_PKCIUDAD').find('option').clone();
+
+    CitySelect();
+
+    $('#cliente_PKESTADO').change(function () {
+
+        CitySelect();
+
+    });
+    function CitySelect() {
+
+        var state,
+            escaped_state,
+            options;
+
+        state = $('#cliente_PKESTADO :selected').val();
+        escaped_state = state.replace(/([ #;&,.+*~\':"!^$[\]()=>|\/@])/g, '\\$1');
+
+        if (!escaped_state) {
+
+            escaped_state = "0";
+        }
+
+        options = $(cities).filter("option[data-pkestado=" + escaped_state + "]");
+
+        if (options) {
+            return $('#cliente_PKCIUDAD').html(options);
+        } else {
+            return $('#cliente_PKCIUDAD').empty();
+        }
+    }
+</script>

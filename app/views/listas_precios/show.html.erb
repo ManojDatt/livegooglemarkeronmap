@@ -1,0 +1,19 @@
+ 
+
+<p>
+  <strong>Pklista:</strong>
+  <%= @listas_precio.PKLISTA %>
+</p>
+
+<p>
+  <strong>Lis default tar:</strong>
+  <%= @listas_precio.LIS_DEFAULT_TAR %>
+</p>
+
+<p>
+  <strong>Lis descripcion:</strong>
+  <%= @listas_precio.LIS_DESCRIPCION %>
+</p>
+
+<%= link_to 'Edit', edit_listas_precio_path(@listas_precio) %> |
+<%= link_to 'Back', listas_precios_path %>

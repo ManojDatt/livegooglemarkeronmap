@@ -1,0 +1,2 @@
+json.extract! empresa, :id, :PKEMPRESA, :EMP_NOMBRE_COMERCIAL, :EMP_RAZON_SOCIAL, :EMP_DIRECCION, :EMP_COLONIA, :EMP_CP, :EMP_RFC, :EMP_PKCIUDAD, :EMP_PKESTADO, :EMP_TEL1, :EMP_TEL2, :EMP_FAX, :EMP_EMAIL, :EMP_TIPO, :created_at, :updated_at
+json.url empresa_url(empresa, format: :json)

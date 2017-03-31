@@ -1,0 +1,1 @@
+json.array! @combustibles, partial: 'combustibles/combustible', as: :combustible

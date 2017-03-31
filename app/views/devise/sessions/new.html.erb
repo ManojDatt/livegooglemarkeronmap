@@ -1,0 +1,46 @@
+
+
+
+
+<div class="login-box">
+  
+  <div class="login-box-body">
+    <div class="login-logo">
+      <a href="javascript:void(0)"></a>
+    </div>
+
+    <h1>TOW CONTROL</h1>
+
+    <%= form_for(resource, :validate => true, as: resource_name, url: session_path(resource_name)) do |f| %>
+    <% if flash.present? %>
+    <div class="alert alert-danger fade in" id="flash_error">
+      <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+      <%=flash.first[1]%>
+    </div>
+    <% end %>
+      <div class="form-group has-feedback">
+        <%= f.text_field :login, autofocus: true, :class =>"form-control", placeholder: "USUARIO" %>
+        <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
+      </div>
+      <div class="form-group has-feedback">
+        <%= f.password_field :password, autocomplete: "off", :class =>"form-control", placeholder: "CONTRASENA" %>
+        <span class="glyphicon glyphicon-lock form-control-feedback"></span>
+      </div>
+
+      <div class="form-group login-form-btn-sec">
+        <%= f.submit "Log in",:class => "btn btn-primary btn-md btn-flat" %>
+      <!--   <a href="/admins/sign_up" class="btn btn-primary btn-md btn-flat">Sign Up</a> -->
+      <%= link_to "Forgot Password?", new_password_path(resource),:class => "btn btn-default btn-md btn-flat"  %>
+      </div>
+    <% end %>
+
+  </div>
+</div>
+<script>
+
+$(document).ready(function(){
+  $(".alert").delay(2000).slideUp(200, function() {
+      $(this).alert('close');
+  });
+});
+</script>

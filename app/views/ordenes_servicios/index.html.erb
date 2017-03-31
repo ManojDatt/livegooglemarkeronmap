@@ -1,0 +1,147 @@
+<!-- Main content -->
+<section class="content">
+  <div class="box-body">
+
+    <div class="row">
+     <div class="col-md-2">
+        <%= link_to '+ Nueva Orden', new_ordenes_servicio_path, :class=>"btn btn-block btn-primary" %>
+      </div>
+
+      <div class="col-md-2">
+         <%= link_to "Pendientes (#{ordens_count1("ASIGNACION PENDIENTE")})", "javascript:void(0)", class: "pedeint", style:'color:#ff0000', id:"filter1"%>
+       </div>
+       <div class="col-md-2">
+          <%= link_to "Asignadas (#{ordens_count1("ASIGNADA")})","javascript:void(0)" , class: "pedeint", style:'color:#53a834', id:"filter2"%>
+      </div>
+      <div class="col-md-2">
+           <%= link_to "Traslado (#{ordens_count1("TRASLADO")})","javascript:void(0)" , class: "pedeint", style:'color:#81a9fb', id:"filter3"%>
+      </div>
+      <div class="col-md-2">
+          <%= link_to "Canceladas (#{ordens_count1("CANCELADA")})","javascript:void(0)" , class: "pedeint", style:'color:#a9a9a9', id:"filter4"%>
+       </div>
+       <div class="col-md-2">
+             <%= link_to "Programadas (#{ordens_count1("PROGRAMADA")})","javascript:void(0)" , class: "pedeint", style:'color:#606b70', id:"filter5"%>
+      </div>
+
+    </div>
+
+
+
+    <table id="example2" class="table table-bordered table-striped">
+      <thead>
+      <tr>
+        <th>NUM. ORDEN</th>
+        <th> GRUA</th>
+         <th> NUM. CLIENTE</th>
+          <th> ORIGEN</th>
+           <th> DESTINO</th>
+
+           <th> AUTORIZACION</th>
+            <th> ACCIONES</th>
+      </tr>
+      </thead>
+
+      <tbody>
+     <% @ordenes_servicios.each do |ordenes_servicio| %>
+          <tr>
+            <td style="color:#fff; background-color:<%=ordens_status_color1 ordenes_servicio.OS_ESTADO %>"><%= ordenes_servicio.ID %></td>
+            <td><%=(((Grua.find(ordenes_servicio.PKGRUA) rescue nil).nil? or (Grua.find(ordenes_servicio.PKGRUA) rescue nil).blank?) ? "N/A" : Grua.find(ordenes_servicio.PKGRUA).GR_CLAVE)%>
+
+
+            </td>
+            <td><%= ordenes_servicio.PKCLIENTE %></td>
+            <td><%= ordenes_servicio.OS_ORIGEN %></td>
+            <td><%= ordenes_servicio.OS_DESTINO %></td>
+            <td><%= ordenes_servicio.OS_AUTORIZACION %></td>
+
+            <td>
+
+
+              <a class="btn btn-success btn-xs" href="<%= edit_ordenes_servicio_path(ordenes_servicio) %>" ><i class="fa fa-fw fa-edit"></i></a>
+
+               <a class="btn btn-warning btn-xs" href="<%= ordenes_servicio_path(ordenes_servicio) %>" > <i class="fa fa-eye" aria-hidden="true"></i>
+               </a>
+            </td>
+          </tr>
+      <% end %>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+
+<script>
+  $(document).ready(function() {
+        $('#example2').DataTable({"paging": true,
+                                  "lengthChange": false,
+                                  "searching": true,
+                                  "ordering": true,
+                                  "info": true,
+                                  "autoWidth": false });
+
+    $("#filter1").click(function(){
+      var local1 = localStorage.getItem("filter1");
+      if(local1==null || local1=="off"){
+        localStorage.setItem("filter1", "on");
+        location.assign("ordenes_servicios?query=ASIGNACION+PENDIENTE");
+      }
+      if(local1=="on")
+      {
+      localStorage.setItem("filter1", "off");
+      location.assign("ordenes_servicios");
+      }
+    });
+
+    $("#filter2").click(function(){
+      var local1 = localStorage.getItem("filter2");
+      if(local1==null || local1=="off"){
+        localStorage.setItem("filter2", "on");
+        location.assign("ordenes_servicios?query=ASIGNADA");
+      }
+      if(local1=="on")
+      {
+      localStorage.setItem("filter2", "off");
+      location.assign("ordenes_servicios");
+      }
+    });
+
+    $("#filter3").click(function(){
+      var local1 = localStorage.getItem("filter3");
+      if(local1==null || local1=="off"){
+        localStorage.setItem("filter3", "on");
+        location.assign("ordenes_servicios?query=TRASLADO");
+      }
+      if(local1=="on")
+      {
+      localStorage.setItem("filter3", "off");
+      location.assign("ordenes_servicios");
+      }
+    });
+
+    $("#filter4").click(function(){
+      var local1 = localStorage.getItem("filter4");
+      if(local1==null || local1=="off"){
+        localStorage.setItem("filter4", "on");
+        location.assign("ordenes_servicios?query=CANCELADA");
+      }
+      if(local1=="on")
+      {
+      localStorage.setItem("filter4", "off");
+      location.assign("ordenes_servicios");
+      }
+    });
+
+    $("#filter5").click(function(){
+      var local1 = localStorage.getItem("filter5");
+      if(local1==null || local1=="off"){
+        localStorage.setItem("filter5", "on");
+        location.assign("ordenes_servicios?query=PROGRAMADA");
+      }
+      if(local1=="on")
+      {
+      localStorage.setItem("filter5", "off");
+      location.assign("ordenes_servicios");
+      }
+    });
+    });
+</script>

@@ -1,0 +1,1 @@
+json.array! @ordenes_servicios, partial: 'ordenes_servicios/ordenes_servicio', as: :ordenes_servicio

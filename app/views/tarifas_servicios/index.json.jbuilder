@@ -1,0 +1,1 @@
+json.array! @tarifas_servicios, partial: 'tarifas_servicios/tarifas_servicio', as: :tarifas_servicio

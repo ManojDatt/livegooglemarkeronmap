@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  PKPAIS: 
+  PA_DESCRIPCION: MyText
+  CODIGOINT: MyString
+
+two:
+  PKPAIS: 
+  PA_DESCRIPCION: MyText
+  CODIGOINT: MyString

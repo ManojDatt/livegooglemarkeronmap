@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  PKLISTA: 1
+  LIS_DEFAULT_TAR: 1
+  LIS_DESCRIPCION: MyString
+
+two:
+  PKLISTA: 1
+  LIS_DEFAULT_TAR: 1
+  LIS_DESCRIPCION: MyString

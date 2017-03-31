@@ -1,0 +1,393 @@
+
+<section class="content">
+  <div class="box-body">
+
+
+      <%= nested_form_for(@depositos_inventario, :validate => true, html: {:class => 'form-horizontal', :multipart => true } ) do |f| %>
+
+
+ <div class="row">
+           
+  </div>
+
+
+           <div class="row">
+        <div class="col-md-3">
+          <div class="form-group">
+             <label>NUM. INVENTARIO</label>
+ <% if !@depositos_inventario.nil? && !@depositos_inventario.new_record? %>
+            <%= f.text_field :PKINVENTARIO ,:class=>"form-control", :readonly => "true" , :maxlength=>20 %>
+<% else %>
+
+ <%= f.text_field :PKINVENTARIO, :value => @depositos_inventario.set_deposito_inventerio ,:class=>"form-control", :readonly => "true" , :maxlength=>20, :readonly => "true" %>
+            <% end %>
+          </div>
+        </div>
+
+         <div class="col-md-3">
+          <div class="form-group">
+             <label>NUM. ORDEN GRUA</label>
+
+            <%= f.text_field :INV_NUMORDEN, :class=>"form-control", onkeypress: "return isNumber(event)", :maxlength=>10, :readonly => "true" %>
+          </div>
+        </div>
+
+        <div class="col-md-3">
+          <div class="form-group">
+             <label>TIPO DE VEHICULO</label>
+             <%= f.collection_select :PKTIPO_AUTO, TipoVehiculo.order(:TAUT_DESCRIPCION), :PKTIPO_AUTO, :TAUT_DESCRIPCION, include_blank: true, :readonly => "true" %>
+            </div>
+    
+          </div>
+       
+        </div>
+
+
+
+         <div class="row">
+        <div class="col-md-3">
+          <div class="form-group">
+             <label>FECHA DETENCION</label>
+
+              <%= text_field :ShowINV, :FDETENCION, value: ((@depositos_inventario.INV_FDETENCION).nil?)? "":@depositos_inventario.INV_FDETENCION.strftime("%d/%m/%Y"), readonly: true, class: "form-control" %> 
+             <%= f.hidden_field :INV_FDETENCION %>
+          </div>
+        </div>
+         <div class="col-md-3">
+          <div class="form-group">
+             <label>LUGAR DETENCION</label>
+
+            <%= f.text_field :INV_LUGARDETENCION, :class=>"form-control", :maxlength=>20, :readonly => "true" %>
+          </div>
+        </div>
+
+         <div class="col-md-3">
+          <div class="form-group">
+             <label>FOLIO DETENCION</label>
+
+            <%= f.text_field :INV_FOLIODETENCION, :class=>"form-control", :maxlength=>20, :readonly => "true" %>
+          </div>
+        </div>
+
+       
+       
+        </div>
+
+         <div class="row">
+        <div class="col-md-3">
+          <div class="form-group">
+             <label>MOTIVO DE LA DETENCION</label>
+
+            <%= f.text_field :INV_MOTIVODETENCION, :class=>"form-control", :maxlength=>20, :readonly => "true" %>
+          </div>
+        </div>
+         
+        <div class="col-md-3">
+          <div class="form-group">
+             <label>AUTORIDAD</label>
+
+            <%= f.text_field :INV_AUTORIDAD, :class=>"form-control", :maxlength=>20, :readonly => "true" %>
+          </div>
+        </div>
+         <div class="col-md-3">
+          <div class="form-group">
+             <label>DEPOSITO VEHICULAR</label>
+
+             <%= f.collection_select :PKDEPOSITO, Deposito.order(:DEP_NOMBRE), :PKDEPOSITO, :DEP_NOMBRE, include_blank: true%>
+          </div>
+        </div>
+        </div>
+
+       <div class="row">
+        <div class="Col-lg-12">
+        <h5 class="content-body-h5">INFORMACION DEL VEHICULO</h5>
+  
+         </div>
+       </div>
+       
+     <div class="row">
+        <div class="col-md-3">
+          <div class="form-group">
+             <label>MARCA</label>
+
+             <%= f.collection_select :PKMARCA, Marca.order(:MAR_DESCRIPCION), :PKMARCA, :MAR_DESCRIPCION, include_blank: true, :readonly => "true" %>
+          </div>
+        </div>
+         
+       <div class="col-md-3">
+          <div class="form-group">
+             <label>SUBMARCA</label>
+
+             <%= f.collection_select :PKSUBMARCA, SubMarca.order(:SUB_DESCRIPCION), :PKSUBMARCA, :SUB_DESCRIPCION, include_blank: true, :readonly => "true" %>
+          </div>
+        </div>
+         <div class="col-md-3">
+          <div class="form-group">
+             <label>COLOR</label>
+
+             <%= f.collection_select :PKCOLOR, Colore.order(:COL_DESCRIPCION), :PKCOLOR, :COL_DESCRIPCION, include_blank: true, :readonly => "true" %>
+          </div>
+        </div>
+         <div class="col-md-2">
+          <div class="form-group">
+             <label>MODELO</label>
+
+            <%= f.text_field :INV_MODELO, :class=>"form-control", onkeypress: "return isNumber(event)", :maxlength=>4, :readonly => "true" %>
+          </div>
+        </div>
+        </div>
+
+         <div class="row">
+         <div class="col-md-3">
+          <div class="form-group">
+             <label>NUM. SERIE</label>
+
+            <%= f.text_field :INV_NOSERIE, :class=>"form-control", :maxlength=>20, :readonly => "true" %>
+          </div>
+        </div>
+         
+       <div class="col-md-3">
+          <div class="form-group">
+             <label>NUM. MOTOR</label>
+
+             <%= f.text_field :INV_NOMOTOR, :class=>"form-control", :maxlength=>20, :readonly => "true" %>
+          </div>
+        </div>
+         <div class="col-md-3">
+          <div class="form-group">
+             <label>CONDICION</label>
+
+            <%= f.text_field :INV_CONDICION, :class=>"form-control", :maxlength=>20, :readonly => "true" %>
+          </div>
+        </div>
+        <div class="col-md-2">
+          <div class="form-group">
+             <label>PLACAS</label>
+
+            <%= f.text_field :INV_PLACAS, :class=>"form-control", :maxlength=>10, :readonly => "true" %>
+          </div>
+        </div>
+        
+        </div>
+
+
+        <div class="row">
+         <div class="col-md-3">
+          <div class="form-group">
+             <label>PERTENENCIAS</label>
+
+            <div class="checkbox icheck depositcheck">
+              <label>
+                <%= check_box_tag :TIENE_LLAVES, :value=>"checked", :style=>"margin-left:0px" %>
+                <label>TIENE LLAVES</label>
+
+              </label>
+            </div>
+          </div>
+        </div>
+         
+       
+        
+        </div>
+
+        
+       
+        
+
+ <div class="row">
+ 
+ <div class="col-md-12 deposito-inventory">
+    <table id="tbl_pertenencias" class="table table-bordered" width="100% ">
+                <tr>
+                  <th >CANTIDAD</th>
+                  <th>DESCRIPCION</th>
+                  <th >CONDICION</th>
+                  <th>   </th>
+                </tr >
+                <%= f.fields_for :depositos_pertenencias, :wrapper => false do |tf| -%>
+              
+                <tr class="tr_pertenencias">
+
+                  <td> 
+                   <%= tf.hidden_field :PKPERTENENCIA%>
+                  <%= tf.text_field :PER_CANTIDAD, :class=>"form-control", onkeypress: "return isNumber(event)", :maxlength=>10, :readonly => "true" %></td>
+                  <td><%= tf.text_field :PER_DESCRIPCION, :class=>"form-control", :maxlength=>20, :readonly => "true" %></td>
+                  <td>
+                     <%= tf.text_field :PER_CONDICION, :class=>"form-control", :maxlength=>20, :readonly => "true" %>
+                  </td>
+                <td> 
+
+                  
+                 
+                </td>
+                </tr>
+               
+                <% end -%>
+                
+       </table>
+ </div>
+ </div> 
+
+  
+ <div class="row">
+ 
+ <div class="col-md-12">
+  <div class="col-md-3">
+  REGISTRO DE IMAGENES
+  </div>
+  <div class="col-md-3">
+ 
+   </div>
+    <div class="col-md-6">
+    </div>
+     </div>
+      </div>
+  <!-- </div>
+   <div class="col-md-6"> -->
+    <div class="row content_imagenes">
+     <div class="col-md-3" style="display:none">
+     &nbsp;
+     </div>
+
+    <%= f.fields_for :depositos_imagenes, :wrapper => false do |ti| -%>
+                
+     <div class="col-md-3 div_imagenes">
+                <%= ti.hidden_field :PKIMAGEN%>
+
+                       <% if ti.object.new_record? %>
+                <%= ti.file_field :IMG_IMAGEN, :onChange => "readURL(this, #{ti.index})" %>
+
+           <img height="50px;width:50px" id="<%= ti.index %>" src="/assets/no-image.png">
+
+
+             
+              <%= ti.link_to_remove "<i class='fa fa-fw fa-remove'></i>".html_safe, class:'btn btn-danger btn-xs',:onclick=>"DeleteRow_imagenes(this);" %>
+              <%  else %>
+
+             
+               <a target="_blank" href="<%= ti.object.IMG_IMAGEN.url%>" > <img height="50px;" width="100px" src="<%= ti.object.IMG_IMAGEN.url%>"> </a>
+
+           
+          
+              <% end %>
+      </div>
+    
+ 
+  
+                
+               
+   <% end -%>
+   </div>
+                
+       
+ </div>
+ </div> 
+
+          
+  
+  
+
+ 
+
+      <% end %>
+
+  </div>
+</section>
+
+<script type="text/javascript">
+  $(document).ready(function () {
+  $("#asignacione_PKGRUA").addClass("form-control");
+ $("#asignacione_PKOPERADOR").addClass("form-control");
+ $("#depositos_inventario_PKTIPO_AUTO").addClass("form-control");
+ $("#depositos_inventario_PKMARCA").addClass("form-control");
+ $("#depositos_inventario_PKSUBMARCA").addClass("form-control");
+$("#depositos_inventario_PKCOLOR").addClass("form-control");
+$("#depositos_inventario_PKCOLOR").addClass("form-control");
+$("#depositos_inventario_PKDEPOSITO").addClass("form-control");
+
+
+
+  $("#asignacione_PKGRUA").prop('disabled',true);
+ $("#asignacione_PKOPERADOR").prop('disabled',true);
+ $("#depositos_inventario_PKTIPO_AUTO").prop('disabled',true);
+ $("#depositos_inventario_PKMARCA").prop('disabled',true);
+ $("#depositos_inventario_PKSUBMARCA").prop('disabled',true);
+$("#depositos_inventario_PKCOLOR").prop('disabled',true);
+$("#depositos_inventario_PKCOLOR").prop('disabled',true);
+$("#depositos_inventario_PKDEPOSITO").prop('disabled',true);
+
+  $("#ShowINV_FDETENCION").datepicker({ 
+      altField: '#depositos_inventario_INV_FDETENCION',
+        minDate: 0,
+        dateFormat: "dd/mm/yy"
+       
+    });  
+
+ 
+
+  window.NestedFormEvents.prototype.insertFields = function(content, assoc, link) {
+   // console.log();
+if ($(link).data("association")=='depositos_imagenes') {
+
+ //$(.content div:last-child)
+  var $tr = $('.content_imagenes div:last');//$("-child");
+
+   
+   $(content).insertAfter($tr);
+  
+  
+
+}
+else{
+ var $tr =  $('#tbl_pertenencias tr:last');
+
+   $(content).insertAfter($tr);
+
+}   
+ 
+
+$('[name^="depositos_inventario[depositos_pertenencias_attributes]"]').each(function () {
+
+    $(this).rules("add", {
+        required: true//,
+       // checkValue: true
+    });
+});
+
+return;
+
+}
+
+  });
+
+function DeleteRow_pertenencias(obj)
+{
+
+      var closestTr=$(obj).closest('.tr_pertenencias');
+       $(closestTr).hide();
+}
+
+function DeleteRow_imagenes(obj)
+{
+   
+    $(obj).closest('.div_imagenes').hide();
+ 
+}
+
+function readURL(input,div_id) {
+  div_id = "#" + div_id;
+  if (input.files && input.files[0]) {
+    var reader = new FileReader();
+    reader.onload = function (e) {
+     
+        $(div_id).attr('src', e.target.result);
+    }
+    reader.readAsDataURL(input.files[0]);
+  }
+}
+
+
+  
+</script>
+
+

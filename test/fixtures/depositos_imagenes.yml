@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  PKINVENTARIO: 1
+  PKIMAGEN: 1
+  IMG_IMAGEN: 
+
+two:
+  PKINVENTARIO: 1
+  PKIMAGEN: 1
+  IMG_IMAGEN: 

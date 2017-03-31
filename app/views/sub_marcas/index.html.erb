@@ -1,0 +1,65 @@
+<!-- Main content -->
+<section class="content">
+  <div class="box-body">
+
+    <div class="row">
+       <div class="col-md-3">
+        <%= link_to 'Nuevo Registro', new_sub_marca_path, :class=>"btn btn-block btn-primary" %>
+      </div>
+    </div>
+
+     
+
+    <table id="example2" class="table table-bordered table-striped">
+      <thead>
+      <tr>
+      
+        <th>SUB MARCA</th>
+        <th>MARCA</th>
+        <th>TIPO DE VEHICULO</th>
+        <th> Acciones</th>
+      </tr>
+      </thead>
+
+      <tbody>
+     <% @sub_marcas.each do |sub_marca| %>
+          <tr>
+         
+          <td><%= sub_marca.SUB_DESCRIPCION %></td>
+            <td>
+              <% url = (((Marca.find(sub_marca.PKMARCA) rescue nil).nil? or (Marca.find(sub_marca.PKMARCA) rescue nil).blank?) ? "N/A" : Marca.find(sub_marca.PKMARCA).MAR_DESCRIPCION) %>
+              <%= url %>
+
+            </td>
+            <td>
+              <% url = (((TipoVehiculo.find(sub_marca.PKTIPO_AUTO) rescue nil).nil? or (TipoVehiculo.find(sub_marca.PKTIPO_AUTO) rescue nil).blank?) ? "N/A" : TipoVehiculo.find(sub_marca.PKTIPO_AUTO).TAUT_DESCRIPCION) %>
+              <%= url %>
+
+            </td>
+            
+            <td>
+              <a class="btn btn-success btn-xs" href="<%= edit_sub_marca_path(sub_marca) %>" ><i class="fa fa-fw fa-edit"></i></a>
+              <%= link_to "<i class='fa fa-fw fa-close'></i>".html_safe, sub_marca, method: :delete, data: { confirm: 'Esta Seguro?' }, class:'btn btn-danger btn-xs' %>
+            </td>
+          </tr>
+      <% end %>
+      </tbody>
+    </table>
+
+  </div>
+</section>
+
+
+<script>
+    $(function () {
+
+        $('#example2').DataTable({
+            "paging": true,
+            "lengthChange": false,
+            "searching": true,
+            "ordering": true,
+            "info": true,
+            "autoWidth": false
+        });
+    });
+</script>

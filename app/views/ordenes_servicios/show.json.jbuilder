@@ -1,0 +1,1 @@
+json.partial! "ordenes_servicios/ordenes_servicio", ordenes_servicio: @ordenes_servicio

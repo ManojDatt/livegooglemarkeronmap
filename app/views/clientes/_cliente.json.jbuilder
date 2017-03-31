@@ -1,0 +1,2 @@
+json.extract! cliente, :id, :PKCLIENTE, :NOMBRE, :DOMICILIO, :COLONIA, :RFC, :PKESTADO, :PKCIUDAD, :CP, :CONTACTO_TELEFONO1, :CONTACTO_TELEFONO2, :CONTACTO_TELEFONO3, :IVA_PORCENTAJE, :RETENCION_IVA_PORCENTAJE, :created_at, :updated_at
+json.url cliente_url(cliente, format: :json)

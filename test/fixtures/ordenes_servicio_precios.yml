@@ -1,0 +1,19 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  OS_ID: 1
+  PKSERVICIO: 1
+  OSP_PRECIO: 9.99
+  OSP_CANTIDAD: 9.99
+  OSP_SUBTOTAL: 9.99
+  OSP_TAX: 9.99
+  OSP_TOTAL: 9.99
+
+two:
+  OS_ID: 1
+  PKSERVICIO: 1
+  OSP_PRECIO: 9.99
+  OSP_CANTIDAD: 9.99
+  OSP_SUBTOTAL: 9.99
+  OSP_TAX: 9.99
+  OSP_TOTAL: 9.99

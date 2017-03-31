@@ -1,0 +1,1 @@
+json.partial! "colores/colore", colore: @colore

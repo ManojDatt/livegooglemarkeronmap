@@ -1,0 +1,63 @@
+/*
+ * This is a manifest file that'll be compiled into application.css, which will include all the files
+ * listed below.
+ *
+ * Any CSS and SCSS file within this directory, lib/assets/stylesheets, vendor/assets/stylesheets,
+ * or any plugin's vendor/assets/stylesheets directory can be referenced here using a relative path.
+ *
+ * You're free to add application-wide styles to this file and they'll appear at the bottom of the
+ * compiled file so the styles you add here take precedence over styles defined in any other CSS/SCSS
+ * files in this directory. Styles in this file should be added after the last require_* statement.
+ * It is generally better to create a new file per style scope.
+ *
+ *= require_tree .
+ *= require_self
+ *= require bootstrap.min
+ */
+
+
+@font-face{font-family:'Glyphicons Halflings';
+    src:url('glyphicons-halflings-regular.eot');
+    src:url('glyphicons-halflings-regulard41d.eot?#iefix') format('embedded-opentype'),
+    url('glyphicons-halflings-regular.html') format('woff2'),
+    url('glyphicons-halflings-regular.woff') format('woff'),
+    url('glyphicons-halflings-regular.ttf')  format('truetype'),
+    url('glyphicons-halflings-regular.svg#glyphicons_halflingsregular') format('svg');
+font-weight: normal;
+font-style: normal;
+}
+
+
+body {
+    font-family: 'Glyphicons Halflings';
+}
+
+
+
+.login-box .login-box-body a {
+	color: #333 !important;
+background-color:none !important;
+
+}
+
+.login-box .login-box-body a:hover {
+	color: #333 !important;
+background-color:none !important;
+
+}
+
+.pedeint{font-size: 18px; font-weight: 400;}
+.pedeint:hover{background-color: #fff;}
+#example2_length{display: none;}
+
+#map_table_view_wrapper div:nth-child(3){display: none;}
+#map_table_view_wrapper div:nth-child(1){width: 21% !important; padding: 0.2em;}
+
+#map { width: 740px; height: 445px; position: relative; overflow: hidden; left: -24px; }
+.post{top:-35px;}
+
+@media only screen and (max-width:414px) and (min-width:320px)
+{
+#map { width: 325px; height: 357px;}
+.post{top:0px;}
+}

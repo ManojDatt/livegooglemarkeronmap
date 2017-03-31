@@ -1,0 +1,195 @@
+<!-- Left side column. contains the logo and sidebar -->
+<aside class="main-sidebar">
+    <!-- sidebar: style can be found in sidebar.less -->
+    <section class="sidebar">
+        <!-- Sidebar user panel -->
+        <div class="user-panel">
+            <div class="image">
+                <img src="/assets/Logo.png" class="innerLogo" alt="Logo"/>
+                <p class="logo-p">TOW CONTROL</p>
+            </div>
+        </div>
+        <ul class="sidebar-menu">
+            <li class="header">&nbsp;</li>
+            <li class="treeview dashboard">
+                <a href="/dashboard/index">
+                    <i class="fa fa-dashboard"></i>
+                    <span>Dashboard</span>
+                </a>
+            </li>
+            <li class="treeview">
+                <a href="#">
+                    <i class="fa fa-clipboard"></i>
+                    <span>Catálogos</span>
+                    <span class="pull-right-container">
+                        <i class="fa fa-angle-left pull-right"></i>
+                    </span>
+                </a>
+                <ul class="treeview-menu">
+                    <li>
+                        <a href="<%=configuraciones_path %>">
+                            <i class="fa fa-circle-o"></i>
+                            Configuración General</a>
+                    </li>
+                    <li>
+                        <a href="<%=estados_path %>">
+                            <i class="fa fa-circle-o"></i>
+                            Estados</a>
+                    </li>
+
+                    <li>
+                        <a href="<%=ciudades_path %>">
+                            <i class="fa fa-circle-o"></i>
+                            Ciudades</a>
+                    </li>
+                    <li>
+                        <a href="<%=pais_path %>">
+                            <i class="fa fa-circle-o"></i>
+                            Países</a>
+                    </li>
+                    <li>
+                        <a href="<%=tipo_vehiculos_path %>">
+                            <i class="fa fa-circle-o"></i>
+                            Tipos de Vehículos</a>
+                    </li>
+
+                    <li>
+                        <a href="<%=marcas_path %>">
+                            <i class="fa fa-circle-o"></i>
+                            Marcas</a>
+                    </li>
+                    <li>
+                        <a href="<%=sub_marcas_path %>">
+                            <i class="fa fa-circle-o"></i>
+                            Sub Marcas</a>
+                    </li>
+
+                    <li>
+                        <a href="<%=clientes_path %>">
+                            <i class="fa fa-circle-o"></i>
+                            Clientes</a>
+                    </li>
+                    <li>
+                        <a href="<%=colores_path %>">
+                            <i class="fa fa-circle-o"></i>
+                            Colores</a>
+                    </li>
+
+                    <li>
+                        <a href="<%=combustibles_path %>">
+                            <i class="fa fa-circle-o"></i>
+                            Combustibles</a>
+                    </li>
+                    <li>
+                        <a href="<%=empresas_path %>">
+                            <i class="fa fa-circle-o"></i>
+                            Empresas</a>
+                    </li>
+                    <li>
+                        <a href="<%=gruas_path %>">
+                            <i class="fa fa-circle-o"></i>
+                            Gruas</a>
+                    </li>
+                    <li>
+                        <a href="<%=operadores_path %>">
+                            <i class="fa fa-circle-o"></i>
+                            Operadores</a>
+                    </li>
+                    <li>
+                        <a href="<%=asignaciones_path %>">
+                            <i class="fa fa-circle-o"></i>
+                            Asingación de Gruas</a>
+                    </li>
+
+                </ul>
+            </li>
+
+            <li class="treeview">
+                <a href="#">
+                    <i class="fa fa-server"></i>
+                    <span>Depósitos</span>
+                    <span class="pull-right-container">
+                        <i class="fa fa-angle-left pull-right"></i>
+                    </span>
+                </a>
+                <ul class="treeview-menu">
+
+                    <li>
+                        <a href="<%=new_depositos_inventario_path %>">
+                            <i class="fa fa-circle-o"></i>Entradas</a>
+                    </li>
+                    <li>
+                        <a href="<%=depositos_inventarios_path %>">
+                            <i class="fa fa-circle-o"></i>Listado</a>
+                    </li>
+
+                    <li>
+                        <a href="<%=new_depositos_salida_path %>">
+                            <i class="fa fa-circle-o"></i>Salidas</a>
+                    </li>
+
+                </ul>
+            </li>
+
+            <li class="treeview">
+                <a href="#">
+                    <i class="fa fa-money"></i>
+                    <span>Tarifas</span>
+                    <span class="pull-right-container">
+                        <i class="fa fa-angle-left pull-right"></i>
+                    </span>
+                </a>
+                <ul class="treeview-menu">
+
+                    <li>
+                        <a href="<%=tarifas_servicios_path %>">
+                            <i class="fa fa-circle-o"></i>Servicios Facturables</a>
+                    </li>
+                    <li>
+                        <a href="<%=categorias_vehiculos_path %>">
+                            <i class="fa fa-circle-o"></i>Categorias</a>
+                    </li>
+
+                    <li>
+                        <a href="<%=listas_precios_path %>">
+                            <i class="fa fa-circle-o"></i>Listas de Precios</a>
+                    </li>
+
+                </ul>
+            </li>
+
+            <li class="treeview">
+                <a href="#">
+                    <i class="fa fa-bars" aria-hidden="true"></i>
+                    <span>Ordenes de Servicio</span>
+                    <span class="pull-right-container">
+                        <i class="fa fa-angle-left pull-right"></i>
+                    </span>
+                </a>
+                <ul class="treeview-menu">
+
+                    <li>
+                        <a href="<%=ordenes_servicios_path %>">
+                            <i class="fa fa-circle-o"></i>Listado</a>
+                    </li>
+                    <li>
+                        <a href="<%=ordenes_servicios_map_index_path%>">
+                            <i class="fa fa-circle-o"></i>Mapa</a>
+                    </li>
+
+                    <li>
+                        <a href="<%=servicios_historica_index_path%>">
+                            <i class="fa fa-circle-o"></i>Historicas</a>
+                    </li>
+
+                    <li>
+                        <a href="#">
+                            <i class="fa fa-circle-o"></i>Facturación</a>
+                    </li>
+
+                </ul>
+            </li>
+        </ul>
+    </section>
+    <!-- /.sidebar -->
+</aside>

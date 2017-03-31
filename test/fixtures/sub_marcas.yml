@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  PKMARCA: 1
+  PKSUBMARCA: 1
+  PKTIPO_AUTO: 1
+  SUB_DESCRIPCION: MyString
+
+two:
+  PKMARCA: 1
+  PKSUBMARCA: 1
+  PKTIPO_AUTO: 1
+  SUB_DESCRIPCION: MyString

@@ -1,0 +1,346 @@
+.form-group.has-feedback span {
+    position: absolute;
+    top: 0 !important;
+}
+
+.login-form-btn-sec {
+    margin-bottom: 0 !important;
+    margin-top: 23px !important;
+    text-align: center;
+}
+.login-form-btn-sec .btn-flat {
+    padding: 7px 24px;
+}
+
+.login-logo {
+    background: rgba(0, 0, 0, 0) url("Logo.png") no-repeat scroll center center;
+    height: 54px;
+    margin-top: 9px;
+    width: 100%;
+}
+
+.login-box-body h1 {
+    color: #528cbf;
+    font-size: 49px;
+    margin: 15px 0;
+    text-align: center;
+}
+
+.form-group.has-feedback label {
+    color: #ff0000;
+    margin: 5px 0 0;
+}
+
+.country-catlog-check {
+    margin-top: 2%;
+    text-align: right;
+}
+
+.country-catlog-check input {
+    float: left;
+    margin: 4px 9px 0 0 !important;
+}
+
+.mar-btn-area {
+    margin-bottom: 21px;
+    margin-top: -43px;
+}
+
+.box-body .form-horizontal .error {
+    color: #ff0000;
+}
+
+.box-body .new_configuracion .error {
+    color: #ff0000;
+}
+.mar-top {
+    margin: -43px 0 21px;
+}
+
+#error_explanation, .field_with_errors{width:100%;}
+
+.innerLogo{max-width: 100% !important;}
+.logo-p{
+    color: #ffffff;
+    font-size: 22px;
+    font-weight: bold;
+    margin-bottom: 0;
+    margin-top: 12px;
+    text-align: center;
+}
+.user-panel {padding-bottom: 4px !important;}
+
+#notice {
+    background: #008000 none repeat scroll 0 0;
+    border-radius: 0;
+    color: #ffffff;
+    float: right;
+    font-size: 14px;
+    padding: 0.7em;
+    position: absolute;
+    right: 1px;
+    top: 53px;
+}
+
+.form-horizontal .form-group {
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+}
+
+.pull-right.btn.btn-danger.signout {
+    background: #ffffff none repeat scroll 0 0;
+    border: medium none;
+    color: #3c8dbc !important;
+    font-weight: bold;
+    text-transform: uppercase;
+}
+
+.pull-right.btn.btn-danger.signout i {
+    margin-right: 5px;
+}
+.cancelbtn {
+    background-color: #ebebeb !important;
+}
+
+
+.content-wrapper, .right-side {
+  background-color: #ecf0f5 !important;
+}
+
+.box-body {
+  background: #fff none repeat scroll 0 0;
+}
+
+.box-body .dataTables_wrapper thead th:nth-last-child(1) {
+  text-align: center;
+  width: 14% !important;
+}
+
+.box-body .dataTables_wrapper tbody td:nth-last-child(1) {
+  text-align: center;
+  width: 14% !important;
+}
+
+.content {
+  padding: 40px 60px !important;
+}
+
+
+
+.map_canvas >div {
+
+background: url('/assets/ajax-loader.gif') no-repeat ;
+
+  height: 400px !important;
+  width: 520px !important;
+  background-position: center !important;
+  background-size: 20% !important;
+}
+
+
+.content-header >h1{
+
+text-transform: capitalize !important;
+    font-weight: bold !important;
+}
+
+.form-horizontal .form-group>label{
+
+    text-transform: capitalize !important;
+    font-weight: bold !important;
+}
+.btn-primary{
+
+    text-transform: capitalize !important;
+    font-weight: bold !important;
+
+}.cancelbtn{
+
+    text-transform: capitalize !important;
+    font-weight: bold !important;
+
+}
+
+.ul-tooltip{position:absolute !important; display: none !important;}
+
+
+.map_canvas_Truck >div {
+
+background: url('/assets/ajax-loader.gif') no-repeat ;
+
+  height: 271px !important;
+  width: 304px !important;
+  background-position: center !important;
+  background-size: 20% !important;
+}
+
+.map_canvas_Truck {
+    width: 304px !important;
+    height: 328px !important;
+    margin: 10px 20px 10px 0;
+    top: -56px;
+    bottom: -65px;
+}
+.depositcheck input[type="checkbox"]{
+
+margin-left: 0px !important;
+}
+
+
+.content-body-h5 {
+margin-left: 16px !important;
+text-transform: capitalize !important;
+    font-weight: bold !important;
+}
+.checkbox.depositcheck > label > label{margin-top: 7px;padding-left: 30px;}
+.deposito-inventory .table.table-bordered td{padding: 0;border: 1px solid #cccccc;border-top:0;border-left: 0;}
+.deposito-inventory .table > tbody > tr > th{border: 1px solid #cccccc;}
+.deposito-inventory .table .form-control{border:0;}
+.deposito-inventory .table > tbody > tr > th .add_nested_fields {
+    font-size: 26px;
+    line-height: 11px;
+    font-weight: bold;
+    color: #333333;
+}
+
+/*.deposito-inventory .table > tbody > tr a:hover{background-color:transparent;}*/
+.deposito-inventory .table.table-bordered{
+    border: 1px solid #cccccc;
+}
+
+
+
+.btn .btn-danger .btn-xs:hover{
+
+    background-color:none !important;
+}
+.btn-danger:hover{
+background-color:none !important;
+
+}
+
+.sidebar-menu .treeview-menu > li > a {
+    padding: 5px 5px 5px 36px !important;
+   }
+
+.content-body-span {text-transform: capitalize !important;font-weight: bold !important;}
+.modal-backdrop.fade.in {
+    opacity: 0;
+    background: none !important;
+}
+.modal-content {
+    border: 1px solid #000 !important;
+    box-shadow: 2px 2px 5px 2px rgba(0,0,0,0.5) !important;
+}
+.modal-dialog {
+    margin-left: 26% !important;
+    margin-top: 5% !important;
+}
+
+.form-horizontal .error {
+    color: #ff0000;
+}
+.content {
+    padding: 40px 10px !important;
+}
+
+.content_imagenes .btn.btn-danger.btn-xs.remove_nested_fields {margin-top: -32px;margin-left: -2px;}
+
+.frm-price-list thead {
+    background-color: #005493;
+    color: #ffffff;
+}
+.frm-price-list thead tr th{font-size:14px;text-align: center;;font-weight:normal;}
+.frm-price-list table, .frm-price-list thead {border: 1px solid #ccc;}
+.frm-price-list tbody tr td{font-size: 11px;padding: 0;}
+.frm-price-list tbody tr td input{border:0;font-size: 11px;}
+.frm-price-list tbody tr td:first-child{padding: 10px;}
+.frm-price-list .table-bordered > tbody > tr > td{border: 1px solid #ccc;}
+
+#btnmanualTruck {
+    margin-top: 27px;
+    padding: 3px 4px;
+}
+
+.map_canvas_Destination >div {
+
+background: url('/assets/ajax-loader.gif') no-repeat ;
+
+  height: 230px !important;
+  width: 412px !important;
+  background-position: center !important;
+  background-size: 20% !important;
+
+}
+
+.map_canvas_Origin >div {
+
+background: url('/assets/ajax-loader.gif') no-repeat ;
+
+  height: 230px !important;
+  width: 462px !important;
+  background-position: center !important;
+  background-size: 20% !important;
+
+}
+.map_canvas_Origin, .map_canvas_Destination{width:468px !important ;}
+/*  for screen width less then 768px*/
+@media only screen and (width: 320px)
+{
+.map_canvas_Origin, .map_canvas_Destination{width:230px !important ;}
+.checkbox.icheck { left: 17px; }
+.modal-content { left: -70px; width: 220px; }
+.gm-style{left:-110px !important;}
+}
+@media only screen and (width: 375px)
+{
+.map_canvas_Origin, .map_canvas_Destination{width:274px !important ;}
+.checkbox.icheck { left: 17px; }
+.modal-content { left: -70px; width: 222px; }
+.gm-style{left:-110px !important;}
+}
+
+@media only screen and (width: 414px)
+{
+.map_canvas_Origin, .map_canvas_Destination{width:315px !important ;}
+.checkbox.icheck { left: 17px; }
+.modal-content { left: -70px; width: 222px; }
+.gm-style{left:-70px !important;}
+}
+
+@media only screen and (width: 360px)
+{
+.map_canvas_Origin, .map_canvas_Destination{width:270px !important ;}
+.checkbox.icheck { left: 17px; }
+.modal-content { left: -70px; width: 222px; }
+.gm-style{left:-90px !important;}
+}
+
+.gmnoprint , .gm-style-cc { display: none !important; }
+.gm-style div:nth-child(2){opacity: 1;}
+.frm-order-service thead {
+    background-color: #005493;
+    color: #ffffff;
+}
+.frm-order-service thead tr th{font-size:14px;text-align: center;;font-weight:normal;}
+.frm-order-service table, .frm-order-service thead {border: 1px solid #ccc;}
+.frm-order-service tbody tr td{font-size: 11px;padding: 0;}
+.frm-order-service tbody tr td input{border:0;font-size: 11px;}
+
+.frm-order-service .table-bordered > tbody > tr > td{border: 1px solid #ccc;}
+.frm-order-service tbody tr td {
+    padding: 0px !important;
+}
+
+.frm-order-service tbody tr td:first-child{padding: 10px!important;}
+
+#order_service .modal-dialog{
+
+  margin-top: 20%!important;
+  margin-left: 37% !important;
+}
+
+.frm-order-service .tab-content{border: none; padding-top: 39px; margin-top: 0px !important;}
+
+.tbl-price-list-disable-control { background-color: #fff !important; opacity: 1; }
+.listedo{width:30%;}

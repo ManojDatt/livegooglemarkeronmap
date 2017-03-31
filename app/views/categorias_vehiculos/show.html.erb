@@ -1,0 +1,19 @@
+ 
+
+<p>
+  <strong>Pkcategoria:</strong>
+  <%= @categorias_vehiculo.PKCATEGORIA %>
+</p>
+
+<p>
+  <strong>Cat descripcion:</strong>
+  <%= @categorias_vehiculo.CAT_DESCRIPCION %>
+</p>
+
+<p>
+  <strong>Cat notas:</strong>
+  <%= @categorias_vehiculo.CAT_NOTAS %>
+</p>
+
+<%= link_to 'Edit', edit_categorias_vehiculo_path(@categorias_vehiculo) %> |
+<%= link_to 'Back', categorias_vehiculos_path %>

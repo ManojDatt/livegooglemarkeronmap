@@ -1,0 +1,44 @@
+<style>
+.field_with_errors { padding: 2px; background-color: #fff; display: table; }
+</style>
+<div class="login-box">
+  
+  <!-- /.login-logo -->
+  <div class="login-box-body">
+    <div class="login-logo">
+      <a href="javascript:void(0)"></a>
+    </div>
+
+    <h1>TOW CONTROL</h1>
+
+<%= form_for(resource, :validate => true, as: resource_name, url: password_path(resource_name), html: { method: :post }) do |f| %>
+      <div class="form-group has-feedback">
+        <%= f.email_field :email, autofocus: true, :class =>"form-control", placeholder: "USUARIO" %>
+        <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
+      </div>
+        <% resource.errors.each do |type, message| %>
+        <div class="alert alert-danger fade in" id="flash_error">
+          <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+          <%=type.capitalize%> <%=message%>.
+        </div>
+        <% end %>
+
+      <div class="form-group login-form-btn-sec">
+        <%= f.submit "Submit",:class => "btn btn-primary btn-md btn-flat" %>
+      <%= link_to "Login", admin_session_path(resource),:class => "btn btn-default btn-md btn-flat"  %>
+      </div>
+    <% end %>
+
+
+
+  </div>
+  <!-- /.login-box-body -->
+</div>
+<script>
+
+$(document).ready(function(){
+  $(".alert").delay(2000).slideUp(200, function() {
+      $(this).alert('close');
+  });
+});
+</script>

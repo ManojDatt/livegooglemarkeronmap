@@ -1,0 +1,166 @@
+
+<!-- Main content -->
+<section class="content">
+  <div class="box-body">
+
+
+      <%= form_tag '', :method => "get", html: {:class => 'form-horizontal' } do %>
+
+
+
+
+           <div class="row">
+            <div class="col-md-3">
+          <div class="form-group">
+             <label>DEPOSITO</label>
+
+            <%= collection_select('', :PKDEPOSITO, depositos_collection, :PKDEPOSITO, :DEP_NOMBRE, {:prompt => true, selected: params[:PKDEPOSITO] },  :class => "form-control") %>
+          </div>
+        </div>
+        <div class="col-md-2">
+          <div class="form-group">
+             <label>CLAVE</label>
+
+            <%= text_field '', :PKINVENTARIO, :value => params[:PKINVENTARIO] ,:class=>"form-control" , :maxlength=>20 %>
+
+          </div>
+        </div>
+        <div class="col-md-2">
+          <div class="form-group">
+             <label>NUM. PLACA</label>
+
+            <%= text_field :'' ,:INV_PLACAS, :value => params[:INV_PLACAS] ,:class=>"form-control", :maxlength=>20 %>
+
+          </div>
+        </div>
+
+         <div class="col-md-2">
+          <div class="form-group">
+             <label>FECHA INGRESO</label>
+
+          <%= text_field :'', :INV_FINGRESO, :value => params[:INV_FINGRESO],  readonly: true, class: "form-control" %>
+          </div>
+        </div>
+        <div class="col-md-3" style="text-align: right;margin-top: 23px">
+            <div class="form-group">
+                <%= submit_tag "BUSCAR",  :class=>"btn btn-md btn-primary" %>
+
+                 <%= link_to 'LIMPIAR', depositos_inventarios_path, :class=>"btn btn-md btn-default cancelbtn" %>
+            </div>
+             </div>
+
+        </div>
+
+
+
+         <div class="row">
+        <div class="col-md-3">
+          <div class="form-group">
+             <label>NUM. MOTOR</label>
+  <%= text_field :'' ,:INV_NOMOTOR, :value => params[:INV_NOMOTOR] ,:class=>"form-control" , :maxlength=>20 %>
+
+
+          </div>
+        </div>
+
+        <div class="col-md-3">
+          <div class="form-group">
+             <label>NUM. SERIE</label>
+  <%= text_field :'' ,:INV_NOSERIE, :value => params[:INV_NOSERIE] ,:class=>"form-control" , :maxlength=>20 %>
+
+
+          </div>
+        </div>
+         </div>
+
+ <% end %>
+
+    <div class="row">
+      <div class="col-md-2">
+        <%= link_to 'Nuevo Registro', new_depositos_inventario_path, :class=>"btn btn-block btn-primary" %>
+      </div>
+    </div>
+
+     
+
+
+    <table id="example2" class="table table-bordered table-striped">
+      <thead>
+      <tr>
+
+        <th>ID</th>
+        <th>DEPOSITO</th>
+        <th>MARCA</th>
+        <th>SUB MARCA</th>
+        <th>COLOR</th>
+        <th>PLACAS</th>
+         <th>FECHA INGRESO</th>
+        <th>Accciones</th>
+      </tr>
+      </thead>
+
+      <tbody>
+    <% if !@depositos_inventarios.nil?  %>
+
+    <% @depositos_inventarios.each do |depositos_inventario| %>
+          <tr>
+
+            <td><%= depositos_inventario.PKINVENTARIO %></td>
+
+
+
+              <td>
+                <% deposito = (((Deposito.find(depositos_inventario.PKDEPOSITO) rescue nil).nil? or (Deposito.find(depositos_inventario.PKDEPOSITO) rescue nil).blank?) ? "N/A" : Deposito.find(depositos_inventario.PKDEPOSITO).DEP_NOMBRE) %>
+                <%= deposito %>
+              </td>
+
+            <td><%= (((Marca.find(depositos_inventario.PKMARCA) rescue nil).nil? or (Marca.find(depositos_inventario.PKMARCA) rescue nil).blank?) ? "N/A" : Marca.find(depositos_inventario.PKMARCA).MAR_DESCRIPCION)  %></td>
+
+             <td><%= (((SubMarca.find(depositos_inventario.PKSUBMARCA) rescue nil).nil? or (SubMarca.find(depositos_inventario.PKSUBMARCA) rescue nil).blank?) ? "N/A" : SubMarca.find(depositos_inventario.PKSUBMARCA).SUB_DESCRIPCION)  %></td>
+
+
+              <td><%= (((Colore.find(depositos_inventario.PKCOLOR) rescue nil).nil? or (Colore.find(depositos_inventario.PKCOLOR) rescue nil).blank?) ? "N/A" : Colore.find(depositos_inventario.PKCOLOR).COL_DESCRIPCION)  %></td>
+            <td><%= depositos_inventario.INV_PLACAS %></td>
+               <td><%=  (depositos_inventario.INV_FINGRESO.nil?) ? "N/A" :depositos_inventario.INV_FINGRESO.strftime("%d/%m/%Y") %></td>
+            <td>
+              <a class="btn btn-success btn-xs" href="<%= edit_depositos_inventario_path(depositos_inventario) %>" ><i class="fa fa-fw fa-edit"></i></a>
+
+ <a class="btn btn-warning btn-xs" href="<%= depositos_inventario_path(depositos_inventario) %>" > <i class="fa fa-eye" aria-hidden="true"></i>
+ </a>
+
+              <%= link_to "<i class='fa fa-fw fa-close'></i>".html_safe, depositos_inventario, method: :delete, data: { confirm: 'Esta Seguro?' }, class:'btn btn-danger btn-xs' %>
+            </td>
+          </tr>
+      <% end %>
+
+        <% end %>
+      </tbody>
+    </table>
+
+  </div>
+</section>
+
+
+
+<script>
+
+
+    $(function () {
+
+ $("#_INV_FINGRESO").datepicker({
+       // minDate: 0,
+        dateFormat: "dd/mm/yy"
+
+    });
+
+
+        $('#example2').DataTable({
+            "paging": true,
+            "lengthChange": false,
+            "searching": true,
+            "ordering": true,
+            "info": true,
+            "autoWidth": false
+        });
+    });
+</script>

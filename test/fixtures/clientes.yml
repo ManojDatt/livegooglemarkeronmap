@@ -1,0 +1,31 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  PKCLIENTE: 1
+  NOMBRE: MyString
+  DOMICILIO: MyString
+  COLONIA: MyString
+  RFC: MyString
+  PKESTADO: 1
+  PKCIUDAD: 1
+  CP: MyString
+  CONTACTO_TELEFONO1: MyString
+  CONTACTO_TELEFONO2: MyString
+  CONTACTO_TELEFONO3: MyString
+  IVA_PORCENTAJE: 9.99
+  RETENCION_IVA_PORCENTAJE: 9.99
+
+two:
+  PKCLIENTE: 1
+  NOMBRE: MyString
+  DOMICILIO: MyString
+  COLONIA: MyString
+  RFC: MyString
+  PKESTADO: 1
+  PKCIUDAD: 1
+  CP: MyString
+  CONTACTO_TELEFONO1: MyString
+  CONTACTO_TELEFONO2: MyString
+  CONTACTO_TELEFONO3: MyString
+  IVA_PORCENTAJE: 9.99
+  RETENCION_IVA_PORCENTAJE: 9.99

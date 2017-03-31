@@ -1,0 +1,67 @@
+
+<section class="content">
+  <div class="box-body">
+
+      <%= form_for(sub_marca, :validate => true, html: {class: 'form-horizontal'}) do |f| %>
+         <% if sub_marca.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(sub_marca.errors.count, "error") %> prohibited this sub_marca from being saved:</h2>
+
+      <ul>
+      <% sub_marca.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+          <div class="row">
+            <div class="col-md-12" style="text-align: right;">
+             <%= f.submit :class=>"btn btn-md btn-primary", :value=>"Guardar" %>
+              <%= link_to 'Cancelar', sub_marcas_path, :class=>"btn btn-md btn-default cancelbtn" %>
+            </div>
+          
+          </div>
+        <div class="row">
+        <div class="col-md-6">
+          <div class="form-group">
+             <label>SUB MARCA</label>
+            <%= f.text_field :SUB_DESCRIPCION, :class=>"form-control" %>
+          </div>
+        </div>
+  
+          <div class="col-md-6">
+            &nbsp;
+          </div>
+        </div>
+
+        <div class="row">
+
+          <div class="col-md-3">
+            <div class="form-group">
+              <label>MARCA</label>
+           <%= f.collection_select :PKMARCA, Marca.order(:MAR_DESCRIPCION), :PKMARCA, :MAR_DESCRIPCION, include_blank: true, class:"form-control" %>
+            </div>
+          </div>
+          <div class="col-md-3">
+           <div class="form-group">
+              <label>TIPO DE VEHICULO</label>
+           <%= f.collection_select :PKTIPO_AUTO, TipoVehiculo.order(:TAUT_DESCRIPCION), :PKTIPO_AUTO, :TAUT_DESCRIPCION, include_blank: true, class:"form-control" %>
+            </div>
+          </div>
+          </div>
+           <div class="col-md-6">
+            &nbsp;
+          </div>
+        </div>
+      <% end %>
+        <!-- /.row -->
+  </div>
+</section>
+<script type="application/javascript">
+  $(document).ready(function () {
+  $("#sub_marca_PKMARCA").addClass("form-control");
+
+    $("#sub_marca_PKTIPO_AUTO").addClass("form-control");
+  });
+</script>
+

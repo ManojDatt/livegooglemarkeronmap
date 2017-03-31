@@ -1,0 +1,1434 @@
+<style type="text/css" media="screen">
+
+      .map_canvas_Origin { float: left; height: 300px; width: 500px;}
+
+
+.map_canvas_Origin {
+  width: 412px;
+  height: 230px;
+  margin: 10px 20px 10px 0;
+}
+
+.map_canvas_Destination { float: left; height: 300px; width: 500px;}
+
+
+.map_canvas_Destination {
+  width: 412px;
+  height: 230px;
+  margin: 10px 20px 10px 0;
+}
+
+
+    </style>
+<section class="content" id="order_service">
+  <div class="box-body">
+
+
+      <%= nested_form_for(ordenes_servicio, :validate => true, html: {:class => 'form-horizontal frm-order-service', :multipart => true } ) do |f| %>
+
+
+ <% if ordenes_servicio.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(ordenes_servicio.errors.count, "error") %> prohibited this ordene servicio from being saved:</h2>
+
+      <ul>
+      <% ordenes_servicio.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+ <div class="row">
+  <div class="col-md-2">
+          <div class="form-group">
+             <label>NUM. ORDEN</label>
+
+            <% if !@ordenes_servicio.nil? && !@ordenes_servicio.new_record? %>
+            <%= f.text_field :ID ,:class=>"form-control", :readonly => "true" , :maxlength=>20 %>
+<% else %>
+
+ <%= f.text_field :ID, :value => @ordenes_servicio.set_ordenes_servicio ,:class=>"form-control", :readonly => "true" , :maxlength=>20 %>
+            <% end %>
+          </div>
+        </div>
+
+          <div class="col-md-2">
+          <div class="form-group">
+             <label>TIPO DE SERVICIO</label>
+              <%= f.select :OS_TIPO_SERVICIO, options_for_select( [['NORMAL','NORMAL'],['TRASLADO','TRASLADO']], @ordenes_servicio.OS_TIPO_SERVICIO) %>
+          </div>
+        </div>
+          <div class="col-md-2">
+
+          <div class="form-group" style="margin-top: 24px">
+           <div class="checkbox icheck" style="padding-top: 0px">
+              <label>
+
+              <%if (@ordenes_servicio.OS_PROGRAMADA == 'PROGRAMADA') %>
+
+                 <%= check_box_tag "chk_SERVICIO_PROGRAMADO",@ordenes_servicio.OS_PROGRAMADA, true%>
+                <label style="padding-left: 2px !important;padding-top: 1px;">SERVICIO PROGRAMADO</label>
+                 <%= f.hidden_field :OS_PROGRAMADA, value: ((@ordenes_servicio.OS_PROGRAMADA).nil?)? "NORMAL": @ordenes_servicio.OS_PROGRAMADA %>
+            <% else%>
+                 <%= check_box_tag :chk_SERVICIO_PROGRAMADO%>
+                <label style="padding-left: 2px !important;padding-top: 1px;">SERVICIO PROGRAMADO</label>
+                 <%= f.hidden_field :OS_PROGRAMADA, value: ((@ordenes_servicio.OS_PROGRAMADA).nil?)? "NORMAL": @ordenes_servicio.OS_PROGRAMADA %>
+             <% end %>
+
+
+              </label>
+            </div>
+          </div>
+
+        </div>
+
+         <div class="col-md-3">
+
+         <div class="form-group">
+             <label>FECHA Y HORA PROGRAMADO</label>
+
+            <%= text_field :ShowOS, :FECHAPROGRAMADA, value: ((@ordenes_servicio.OS_FECHAPROGRAMADA).nil?)? "":@ordenes_servicio.OS_FECHAPROGRAMADA.strftime("%d/%m/%Y"), readonly: true, :class=>"form-control", :maxlength=>20, :disabled => "disabled"%>
+
+           <%= f.hidden_field :OS_FECHAPROGRAMADA %>
+          </div>
+
+        </div>
+         <div class="col-md-3" style="text-align: right;">
+
+                <%= f.submit :class=>"btn btn-md btn-primary", :value=>"Guardar" %>
+
+                 <%= link_to 'Cancelar', ordenes_servicios_path, :class=>"btn btn-md btn-default cancelbtn" %>
+            </div>
+
+  </div>
+
+
+   <div class="row">
+  <div class="col-md-2">
+          <div class="form-group">
+             <label>F. ALTA</label>
+
+            <%= f.text_field :OS_FECHAALTA, :class=>"form-control", :readonly => "true" ,:value => Time.now  %>
+          </div>
+        </div>
+          <div class="col-md-2">
+          <div class="form-group">
+             <label>STATUS</label>
+              <%= f.select :OS_ESTADO, options_for_select( order_status, @ordenes_servicio.OS_ESTADO) %>
+          </div>
+        </div>
+
+
+          <div class="col-md-2">
+          <div class="form-group">
+           <a class="btn btn-md btn-success" id="btnmanualTruck">ASIGNACION MANUAL</a>
+          </div>
+        </div>
+
+        <div class="col-md-2">
+           <div class="form-group">
+             <label>GRUA</label>
+
+              <% truckNo =''
+              grua= Grua.where(["PKGRUA = ?", @ordenes_servicio.PKGRUA]).first
+                if !grua.nil?
+                  truckNo = grua.GR_CLAVE
+                end
+              %>
+
+
+
+            <%= text_field :ordenesservicio, :GRUA, :class=>"form-control" ,:readOnly=>"true", :maxlength=>20, :value => truckNo %>
+
+              <%= f.hidden_field :PKGRUA, :class=>"form-control", :maxlength=>20 %>
+
+          </div>
+        </div>
+        <div class="col-md-2">
+           <div class="form-group">
+             <label>OPERADOR</label>
+
+              <%
+               operatorName =''
+              operador= Operadore.where(["PKOPERADOR = ?", @ordenes_servicio.PKOPERADOR]).first
+
+                if !operador.nil?
+                  operatorName = operador.OP_NOMBRE
+
+                end
+
+              %>
+
+            <%= text_field :ordenesservicio, :OPERADOR, :class=>"form-control", :maxlength=>20,:readOnly=>"true", :value => operatorName %>
+
+              <%= f.hidden_field :PKOPERADOR, :class=>"form-control", :maxlength=>20 %>
+          </div>
+        </div>
+        <div class="col-md-2">
+           <div class="form-group">
+             <label>HR COMPROMISO</label>
+
+            <%= f.text_field :OS_TCOMPROMISO, :class=>"form-control", :maxlength=>20,:readOnly=>"true" %>
+          </div>
+        </div>
+
+  </div>
+
+
+ <div class="row">
+  <div class="col-md-2">
+          <div class="form-group">
+             <label>NUM. CLIENTE</label>
+
+            <%= text_field :OS, :NUM_CLIENTE, :class=>"form-control", :maxlength=>20 %>
+          </div>
+        </div>
+
+          <div class="col-md-6">
+          <div class="form-group">
+             <label>CLIENTE</label>
+             <%= f.collection_select :PKCLIENTE, Cliente.order(:NOMBRE), :PKCLIENTE, :NOMBRE, include_blank: true %>
+          </div>
+        </div>
+
+        <div class="col-md-2">
+           <div class="form-group">
+             <label>AUTORIZACION</label>
+
+            <%= f.text_field :OS_AUTORIZACION, :class=>"form-control", :maxlength=>20 %>
+          </div>
+        </div>
+
+
+  </div>
+
+
+
+
+  <div class="row">
+  <div class="col-md-7">
+          <div class="form-group">
+             <label>NOMBRE DEL SOLICITANTE</label>
+
+            <%= f.text_field :OS_NOMBRE, :class=>"form-control", :maxlength=>20 %>
+          </div>
+        </div>
+
+          <div class="col-md-3">
+          <div class="form-group">
+             <label>TELEFONO DEL SOLICITANTE</label>
+          <%= f.text_field :OS_TELEFONO, :class=>"form-control", :maxlength=>20, onkeypress: "return isNumber(event)" %>
+          </div>
+        </div>
+
+
+  </div>
+
+
+
+
+
+  <div class="row">
+
+
+    <div class="col-md-3">
+          <div class="form-group">
+             <label>SUBMARCA</label>
+
+
+
+             <%= f.select :PKSUBMARCA, SubMarca.order(:SUB_DESCRIPCION).all.map {|c| [c.SUB_DESCRIPCION, c.PKSUBMARCA, {:'data-PKTIPO_AUTO' => c.PKTIPO_AUTO,:'data-PKMARCA' => c.PKMARCA }]},include_blank:true %>
+          </div>
+        </div>
+
+
+           <div class="col-md-3">
+          <div class="form-group">
+             <label>MARCA</label>
+
+             <%= f.collection_select :PKMARCA, Marca.order(:MAR_DESCRIPCION), :PKMARCA, :MAR_DESCRIPCION, include_blank: true %>
+          </div>
+        </div>
+          <div class="col-md-3">
+          <div class="form-group">
+             <label>TIPO DE VEHICULO</label>
+             <%= f.collection_select :PKTIPO_AUTO, TipoVehiculo.order(:TAUT_DESCRIPCION), :PKTIPO_AUTO, :TAUT_DESCRIPCION, include_blank: true %>
+
+
+            </div>
+
+          </div>
+
+
+
+  </div>
+
+
+ <div class="row">
+
+<div class="col-md-3">
+          <div class="form-group">
+             <label>COLOR</label>
+
+             <%= f.collection_select :PKCOLOR, Colore.order(:COL_DESCRIPCION), :PKCOLOR, :COL_DESCRIPCION, include_blank: true %>
+          </div>
+        </div>
+
+         <div class="col-md-2">
+          <div class="form-group">
+             <label>PLACAS</label>
+
+            <%= f.text_field :OS_PLACAS, :class=>"form-control", :maxlength=>10 %>
+          </div>
+        </div>
+         <div class="col-md-2">
+          <div class="form-group">
+             <label>MODELO</label>
+
+            <%= f.text_field :OS_MODELO, :class=>"form-control", onkeypress: "return isNumber(event)", :maxlength=>4 %>
+          </div>
+        </div>
+ <div class="col-md-2">
+          <div class="form-group">
+             <label>POLIZA</label>
+
+            <%= f.text_field :OS_POLIZA, :class=>"form-control", :maxlength=>10 %>
+          </div>
+        </div>
+
+         <div class="col-md-2">
+          <div class="form-group">
+             <label>NO. SINIESTRO</label>
+
+            <%= f.text_field :OS_SINIESTRO, :class=>"form-control", :maxlength=>10 %>
+          </div>
+        </div>
+
+  </div>
+ <div class="row">
+
+
+         <div class="col-md-5">
+          <div class="form-group">
+             <label>ASEGURADO</label>
+
+            <%= f.text_field :OS_ASEGURADO, :class=>"form-control", :maxlength=>10 %>
+          </div>
+        </div>
+         <div class="col-md-5">
+          <div class="form-group">
+             <label>AJUSTADOR</label>
+
+            <%= f.text_field :OS_AJUSTADOR, :class=>"form-control"%>
+          </div>
+        </div>
+
+
+
+  </div>
+ <div class="row">
+ <div class="col-lg-12">
+
+
+
+  <div class="col-lg-12">
+  <input name="lat" type="text" value="" class="hide" id="txtLattitude">
+
+  <input name="lng" type="text" value="" class="hide" id="txtlongitude">
+
+  <ul class="nav nav-tabs">
+    <li class="active listedo"><a href="#div_Origin">ORIGEN</a></li>
+    <li class="listedo"><a href="#div_Destination">DESTINO</a></li>
+    <li class="listedo"><a href="#div_Status">STATUS</a></li>
+  </ul>
+  </div>
+    <div class="tab-content" style="margin-top: 8px">
+
+          <!-- ORIGIN DIV -->
+
+             <div id="div_Origin" class="tab-pane fade in active col-lg-12" >
+
+
+                  <div class="row">
+
+                       <div class="col-md-6">
+
+                    <div class="form-group">
+
+                         <% if  !@ordenes_servicio.OS_ORIGEN.nil? %>
+
+                            <%= f.text_field :OS_ORIGEN, :class=>"form-control", :placeholder =>"Type in an address", :value =>  @ordenes_servicio.OS_ORIGEN %>
+
+                              <input type="text" name="Origin_Geocomplete" id="Origin_Geocomplete" class="hide" value="<%=@ordenes_servicio.OS_ORIGEN %>">
+
+                          <% else %>
+                                 <%= f.text_field :OS_ORIGEN, :class=>"form-control",:placeholder =>"Type in an address", :value => "guadalajara" %>
+                                 <input type="text" name="Origin_Geocomplete" id="Origin_Geocomplete" class="hide" value="guadalajara">
+                         <% end%>
+                    </div>
+
+                  </div>
+                       <div class="col-md-3">
+                            <div class="form-group">
+                         <input id="btnRefresh_OriginMap" type="button" value="Mostrar en Mapa" class="btn btn-md btn-primary" />
+                         </div>
+
+                     </div>
+                  </div>
+
+                  <div class="row">
+                    <div class="col-md-6">
+                      <div class="map_canvas_Origin" id="map_canvas_Origin"></div>
+                      </div>
+
+                       <div class="col-md-6">
+                         <div class="col-md-12">
+                         <div class="form-group">
+                            <label>OBSERVACIONES</label>
+                       <%= f.text_area :OS_ORIGEN_NOTAS, :class=>"form-control" %>
+                    </div>
+                         </div>
+
+                          <div class="col-md-12">
+                          &nbsp;
+                          </div>
+                      <div class="col-md-12">
+                <div class="col-md-5">
+                        &nbsp;
+                         </div>
+                      <div class="col-md-3">
+                          <label >LATITUD</label>
+                         </div>
+                         <div class="col-md-4">
+                         <div class="form-group">
+
+                       <%= f.text_field :OS_ORIGEN_LAT, :class=>"form-control" %>
+                    </div>
+                         </div>
+                      </div>
+
+                         <div class="col-md-12">
+                        <div class="col-md-5">
+                         &nbsp;
+                         </div>
+                      <div class="col-md-3">
+                          <label >LONGITUD</label>
+                         </div>
+                         <div class="col-md-4">
+                         <div class="form-group">
+
+
+                       <%= f.text_field :OS_ORIGEN_LONG, :class=>"form-control" %>
+                    </div>
+                         </div>
+                      </div>
+                      </div>
+                   </div>
+
+              </div>
+
+
+          <!-- DESTINATION DIV -->
+           <div id="div_Destination" class="tab-pane fade col-lg-12">
+
+                      <div class="row">
+
+                       <div class="col-md-6">
+
+                    <div class="form-group">
+                          <% if  !@ordenes_servicio.OS_ORIGEN.nil? %>
+                               <%= f.text_field :OS_DESTINO, :class=>"form-control",:placeholder =>"Type in an address", :value =>  @ordenes_servicio.OS_DESTINO %>
+                               <input type="text" name="Dest_Geocomplete" id="Dest_Geocomplete" class="hide"  value="<%=@ordenes_servicio.OS_DESTINO %>">
+                              <%else %>
+                                <%= f.text_field :OS_DESTINO, :class=>"form-control",:placeholder =>"Type in an address", :value => "guadalajara" %>
+                               <input type="text" name="Dest_Geocomplete" id="Dest_Geocomplete" class="hide" value="guadalajara">
+
+                            <% end%>
+
+
+
+                    </div>
+
+                  </div>
+                       <div class="col-md-3">
+                            <div class="form-group">
+                         <input id="btnRefresh_DestinationMap" type="button" value="Mostrar en Mapa" class="btn btn-md btn-primary" />
+                         </div>
+
+                     </div>
+                  </div>
+
+                  <div class="row">
+                    <div class="col-md-6">
+                      <div class="map_canvas_Destination" id="map_canvas_Destination"></div>
+                      </div>
+
+                       <div class="col-md-6">
+                         <div class="col-md-12">
+                         <div class="form-group">
+                            <label>OBSERVACIONES</label>
+                       <%= f.text_area :OS_DESTINO_NOTAS, :class=>"form-control" %>
+                    </div>
+                         </div>
+
+                          <div class="col-md-12">
+                          &nbsp;
+                          </div>
+                      <div class="col-md-12">
+                <div class="col-md-5">
+                        &nbsp;
+                         </div>
+                      <div class="col-md-3">
+                          <label >LATITUD</label>
+                         </div>
+                         <div class="col-md-4">
+                         <div class="form-group">
+
+                       <%= f.text_field :OS_DESTINO_LAT, :class=>"form-control" %>
+                    </div>
+                         </div>
+                      </div>
+
+                         <div class="col-md-12">
+                        <div class="col-md-5">
+                         &nbsp;
+                         </div>
+                      <div class="col-md-3">
+                          <label >LONGITUD</label>
+                         </div>
+                         <div class="col-md-4">
+                         <div class="form-group">
+
+                       <%= f.text_field :OS_DESTINO_LONG, :class=>"form-control" %>
+                    </div>
+                         </div>
+                      </div>
+                      </div>
+                   </div>
+           </div>
+
+
+          <!-- STATUS DIV -->
+            <div id="div_Status" class="tab-pane fade col-lg-12">
+              <div class="row">
+
+
+                           <div class="col-md-6">
+                               <div class="row">
+
+                           <div class="col-md-7">
+
+                            <div class="form-group">
+                              <label >FECHA/HORA DE ASIGNACION</label>
+                               <%= f.text_field :OS_FECHAASIGNACION, :class=>"form-control" ,:readonly => "true" %>
+                            </div>
+
+                          </div>
+
+                           <div class="col-md-5">
+
+                            <div class="form-group">
+                              <label >ODOMETRO INICIAL</label>
+                               <%= f.text_field :OS_ODOMETROINICIAL, :class=>"form-control" ,:readonly => "true"%>
+                            </div>
+
+                          </div>
+                          </div>
+
+                           <div class="row">
+
+                           <div class="col-md-7">
+
+                            <div class="form-group">
+                              <label >FECHA/HORA DE PRIMER CONTACTO</label>
+                               <%= f.text_field :OS_FECHALLEGADA, :class=>"form-control" ,:readonly => "true"%>
+                            </div>
+
+                          </div>
+
+                           <div class="col-md-5">
+
+                            <div class="form-group">
+                              <label >ODOMETRO INICIAL</label>
+                               <%= f.text_field :OS_ODOMETROFINAL, :class=>"form-control" ,:readonly => "true"%>
+                            </div>
+
+                          </div>
+                          </div>
+
+
+                           <div class="row">
+
+                           <div class="col-md-7">
+
+                            <div class="form-group">
+                              <label >FECHA/HORA DE INICIO DE ARRASTRE</label>
+                               <%= f.text_field :OS_FECHAINCIO, :class=>"form-control"  ,:readonly => "true"%>
+                            </div>
+
+                          </div>
+
+                           <div class="col-md-5">
+
+                            <div class="form-group">
+                              <label >KMS RECORRIDOS</label>
+                               <%= f.text_field :OS_KMINTER, :class=>"form-control"  ,:readonly => "true"%>
+                            </div>
+
+                          </div>
+                          </div>
+
+
+                           <div class="row">
+
+                           <div class="col-md-7">
+
+                            <div class="form-group">
+                              <label >FECHA/HORA DE LLEGADA DESTINO</label>
+                               <%= f.text_field :OS_FECHAFIN, :class=>"form-control"  ,:readonly => "true"%>
+                            </div>
+
+                          </div>
+
+                           <div class="col-md-5">
+
+                            <div class="form-group">
+                              <label >HRS TRANSCURRIDAS</label>
+                               <%= f.text_field :OS_HRINTER, :class=>"form-control" ,:readonly => "true"%>
+                            </div>
+
+                          </div>
+                          </div>
+
+                          <div class="row">
+
+                           <div class="col-md-7">
+
+                            <div class="form-group">
+                              <label >FECHA/HORA DE FIN DE SERVICIO</label>
+                               <%= f.text_field :OS_FECHATERMINO, :class=>"form-control" ,:readonly => "true"%>
+                            </div>
+
+                          </div>
+
+                           <div class="col-md-5">
+
+                            <div class="form-group">
+                              <label >IMPORTE TOTAL</label>
+                               <%= text_field :OS, :IMPORTETotal, :class=>"form-control" ,:readonly => "true", :value =>"0.00" %>
+                            </div>
+
+                          </div>
+                          </div>
+
+
+                        </div>
+                       <!-- <div class="col-md-1">
+
+                        &nbsp;
+
+                      </div> -->
+                           <div class="col-md-6">
+
+                            <table id="tbl-price-list" class="table table-bordered table-striped tbl-price-list">
+
+                                      <thead>
+
+                                          <tr>
+
+                                            <th>SERVICIO</th>
+
+                                              <th>CANT</th>
+                                               <th>P.U.</th>
+                                                <th>SUBTOTAL</th>
+                                                <th>IVA</th>
+                                                <th>TOTAL</th>
+                                          </tr>
+
+                                      </thead>
+
+                                      <tbody>
+
+                                           <%= form_for :ordenes_servicio_precios, :wrapper => false do |pd| -%>
+
+                              <% TarifasServicio.order(:PKSERVICIO).each do |tarifasServicio| %>
+
+                                          <tr>
+
+                                                                    <td style="width:  27%;"><%=
+                                                                    tarifasServicio.SER_DESCRIPCION%></td>
+
+                                                                   <%= hidden_field_tag "ordenes_servicio[ordenes_servicio_precios_attributes]["+tarifasServicio.PKSERVICIO.to_s+"][PKSERVICIO]",  tarifasServicio.PKSERVICIO %>
+
+                                                                <%
+
+                                          detailService= @ordenes_servicio.ordenes_servicio_precios.where(["PKSERVICIO = ?", tarifasServicio.PKSERVICIO] ).first %>
+
+                                                                <% if !detailService.nil?   %>
+
+
+
+
+
+
+                                                        <td>
+
+                                                     <%= hidden_field_tag "ordenes_servicio[ordenes_servicio_precios_attributes]["+tarifasServicio.PKSERVICIO.to_s+"][ID]",  detailService.ID %>
+
+
+                                                     <%= hidden_field_tag "ordenes_servicio[ordenes_servicio_precios_attributes]["+tarifasServicio.PKSERVICIO.to_s+"][id]",  detailService.ID %>
+
+                                                      <%= hidden_field_tag "ordenes_servicio[ordenes_servicio_precios_attributes]["+tarifasServicio.PKSERVICIO.to_s+"][OS_ID]",  detailService.OS_ID %>
+
+                                                        <%= text_field_tag "ordenes_servicio[ordenes_servicio_precios_attributes]["+tarifasServicio.PKSERVICIO.to_s+"][OSP_CANTIDAD]", detailService.OSP_CANTIDAD , :class=>"form-control qty", onkeypress: "return isFloat(event)", :min=>"0" %>
+                                                        </td>
+
+                                                          <td>
+
+                                                        <%= text_field_tag "ordenes_servicio[ordenes_servicio_precios_attributes]["+tarifasServicio.PKSERVICIO.to_s+"][OSP_PRECIO]", detailService.OSP_PRECIO , :class=>"form-control price", onkeypress: "return isFloat(event)", :min=>"0" %>
+                                                          </td>
+                                                           <td>
+
+
+                                                       <%= text_field_tag "ordenes_servicio[ordenes_servicio_precios_attributes]["+tarifasServicio.PKSERVICIO.to_s+"][OSP_SUBTOTAL]", detailService.OSP_SUBTOTAL , :class=>"form-control subtotal
+                                                        tbl-price-list-disable-control", onkeypress: "return isFloat(event)", :min=>"0", :readonly => "true" %>
+                                                         </td>
+                                                          <td>
+
+
+                                                        <%= text_field_tag "ordenes_servicio[ordenes_servicio_precios_attributes]["+tarifasServicio.PKSERVICIO.to_s+"][OSP_TAX]", detailService.OSP_TAX , :class=>"form-control tax", onkeypress: "return isFloat(event)", :min=>"0" %>
+                                                          </td>
+                                                            <td>
+
+                                                       <%= text_field_tag "ordenes_servicio[ordenes_servicio_precios_attributes]["+tarifasServicio.PKSERVICIO.to_s+"][OSP_TOTAL]", detailService.OSP_TOTAL , :class=>"form-control total
+                                                        tbl-price-list-disable-control", onkeypress: "return isFloat(event)", :min=>"0", :readonly => "true" %>
+                                                       </td>
+
+                                                           <% else %>
+
+                                                               <td>
+
+                                                        <%= text_field_tag "ordenes_servicio[ordenes_servicio_precios_attributes]["+tarifasServicio.PKSERVICIO.to_s+"][OSP_CANTIDAD]","0.00" , :class=>"form-control qty", onkeypress: "return isFloat(event)", :min=>"0" %>
+                                                        </td>
+
+                                                          <td>
+
+                                                        <%= text_field_tag "ordenes_servicio[ordenes_servicio_precios_attributes]["+tarifasServicio.PKSERVICIO.to_s+"][OSP_PRECIO]","0.00" , :class=>"form-control price", onkeypress: "return isFloat(event)", :min=>"0" %>
+                                                          </td>
+                                                           <td>
+
+
+                                                       <%= text_field_tag "ordenes_servicio[ordenes_servicio_precios_attributes]["+tarifasServicio.PKSERVICIO.to_s+"][OSP_SUBTOTAL]","0.00" , :class=>"form-control subtotal
+                                                        tbl-price-list-disable-control", onkeypress: "return isFloat(event)", :min=>"0", :readonly => "true" %>
+                                                         </td>
+                                                          <td>
+
+
+                                                        <%= text_field_tag "ordenes_servicio[ordenes_servicio_precios_attributes]["+tarifasServicio.PKSERVICIO.to_s+"][OSP_TAX]","0.00" , :class=>"form-control tax", onkeypress: "return isFloat(event)", :min=>"0" %>
+                                                          </td>
+                                                            <td>
+
+                                                       <%= text_field_tag "ordenes_servicio[ordenes_servicio_precios_attributes]["+tarifasServicio.PKSERVICIO.to_s+"][OSP_TOTAL]","0.00" , :class=>"form-control total
+                                                        tbl-price-list-disable-control", onkeypress: "return isFloat(event)", :min=>"0", :readonly => "true" %>
+                                                       </td>
+
+                                                            <%end%>
+
+
+                             </tr>
+
+
+
+                                  <% end %>
+
+                                           <% end %>
+
+
+                                      </tbody>
+
+
+                            </table>
+
+                         </div>
+
+                       </div>
+
+
+
+                  </div>
+
+           </div>
+    </div>
+
+
+ </div>
+      <% end %>
+
+  </div>
+
+
+
+
+
+
+<!-- Modal PopUP -->
+
+
+<div id="myModal" class="modal fade" role="dialog">
+  <div class="modal-dialog" style="width:36% ">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+
+      <div class="modal-body">
+
+  <%= form_tag '', :method => "get", :id =>"frmManualTruck_Assignment", :class => 'form-horizontal'  do %>
+
+
+        <div class="row">
+          <div class="col-md-6">
+            <div class="form-group">
+            <label>ASIGNGAR GRUA</label>
+               <%= select_tag :Asignar_GURA, options_for_select(assignar_grua),include_blank:true %>
+            </div>
+          </div>
+           <div class="col-md-1">
+              &nbsp;
+
+          </div>
+            <div class="col-md-3">
+               &nbsp;
+
+
+          </div>
+
+        </div>
+
+         <div class="row">
+          <div class="col-md-12">
+            <div class="form-group">
+            <label>OPERADOR</label>
+              <%= text_field :OS, :OPERADOR ,:class=>"form-control"%>
+
+               <%= hidden_field :OS, :PKOPERADOR ,:class=>"form-control"%>
+            </div>
+          </div>
+
+
+        </div>
+  <div class="row">
+          <div class="col-md-6">
+            <div class="form-group">
+            <label>TIEMPO COMPROMISO</label>
+              <%= text_field :OS, :TIEMPO_COMPROMISO, onkeypress: "return isNumber(event)" ,:class=>"form-control" %>
+            </div>
+          </div>
+
+
+        </div>
+          <div class="row">
+           <div class="col-md-6" >
+
+
+               &nbsp;
+            </div>
+
+        <div class="col-md-3" >
+
+
+                  <%= submit_tag "Guardar",  :class=>"btn btn-md btn-primary", :id => "btnSubmit_TruckAsssignment"%>
+
+
+
+            </div>
+           <div class="col-md-2" >
+
+
+
+
+                 <%= link_to 'Cancelar',"javascript:void(0);",:id =>"btn_cancelModal", :class=>"btn btn-md btn-default cancelbtn" %>
+            </div>
+
+        </div>
+      <%end%>
+
+
+
+      </div>
+
+    </div>
+    </div>
+</div>
+</section>
+
+<script type="text/javascript">
+$(document).ready(function () {
+    $("#ordenes_servicio_OS_TIPO_SERVICIO").addClass("form-control");
+    $("#ordenes_servicio_PKCLIENTE").addClass("form-control");
+    $("#ordenes_servicio_PKMARCA").addClass("form-control");
+    $("#ordenes_servicio_PKSUBMARCA").addClass("form-control");
+    $("#ordenes_servicio_PKCOLOR").addClass("form-control");
+    $("#ordenes_servicio_OS_ESTADO").addClass("form-control");
+    $("#ordenes_servicio_PKTIPO_AUTO").addClass("form-control");
+    $("#Asignar_GURA").addClass("form-control");
+    $("#ordenes_servicio_OS_ORIGEN").geocomplete();
+    $("#ordenes_servicio_OS_DESTINO").geocomplete();
+});
+
+
+
+</script>
+
+
+
+<script>
+
+$(document).ready(function(){
+
+
+                    InitialLoadOriginMap();
+
+                      $("#btnRefresh_OriginMap").click(function(){
+
+                        LoadOriginMap();
+
+                      });
+
+
+                   $("#btnRefresh_DestinationMap").click(function(){
+                        LoadDestinationMap();
+
+
+                      });
+
+
+
+    $(".nav-tabs a").click(function(){
+
+
+      if ($(this).text()=="ORIGEN") {
+
+
+            $("#Origin_Geocomplete").trigger("update");
+
+
+              setTimeout(function(){
+        $("#btnRefresh_OriginMap").click();
+    }, 1000);
+      }
+
+      if ($(this).text()=="DESTINO") {
+
+
+          $("#Dest_Geocomplete").trigger("update");
+
+           setTimeout(function(){
+        $("#btnRefresh_DestinationMap").click();
+    }, 1000);
+
+      }
+
+
+                     $(this).tab('show');
+
+        ResetRules();
+    });
+
+
+    CalculateGrandTotal();
+
+       FillMarcasBySubMarca();
+       FillTipoVehiculosBySubMarca();
+
+       $('#ordenes_servicio_PKSUBMARCA').change(function() {
+        FillMarcasBySubMarca();
+        FillTipoVehiculosBySubMarca();
+
+     });
+});
+
+   function FillMarcasBySubMarca(){
+       $.ajax({
+        type:"POST",
+        url:"/ordenes_servicios/GetAllMarcas",
+        dataType:"json",
+        data: {PKMARCA: $('#ordenes_servicio_PKSUBMARCA option:selected').attr('data-pkmarca')},
+        success:function(result){
+        console.log(result)
+         var marca=$("#ordenes_servicio_PKMARCA");
+          if (result && result!= null && result.length>0) {
+
+            marca.html('');
+
+            for (var i = 0; i < result.length; i++) {
+               marca.append('<option value='+ result[i].PKMARCA +'>'+ result[i].MAR_DESCRIPCION +'</option>');
+            }
+
+          }
+          else{
+            marca.html('');
+
+          }
+
+        }
+      });
+  }
+
+   function FillTipoVehiculosBySubMarca(){
+       $.ajax({
+        type:"POST",
+        url:"/ordenes_servicios/GetAllTipoVehiculos",
+        dataType:"json",
+        data: {PKTIPO_AUTO: $('#ordenes_servicio_PKSUBMARCA option:selected').attr('data-pktipo_auto')},
+        success:function(result){
+        console.log(result)
+
+         var tipo=$("#ordenes_servicio_PKTIPO_AUTO");
+          if (result && result!= null && result.length>0) {
+            tipo.html('');
+            for (var i = 0; i < result.length; i++) {
+               tipo.append('<option value='+ result[i].PKTIPO_AUTO +'>'+ result[i].TAUT_DESCRIPCION +'</option>');
+            }
+
+          }
+          else{
+            tipo.html('');
+
+          }
+
+        }
+      });
+  }
+
+
+ function LoadOriginMap()
+      {
+
+
+          $("#Origin_Geocomplete").geocomplete({
+                        map: ".map_canvas_Origin",
+                        details: "form",
+                        types: ["geocode", "establishment"]
+
+                      });
+
+      $("#Origin_Geocomplete").val($("#ordenes_servicio_OS_ORIGEN").val().toUpperCase()).trigger("geocode");
+
+
+       setTimeout(function(){
+              $("#ordenes_servicio_OS_ORIGEN_LAT").val($("#txtLattitude").val());
+                            $("#ordenes_servicio_OS_ORIGEN_LONG").val($("#txtlongitude").val());
+          }, 800);
+
+      }
+
+      function InitialLoadOriginMap()
+           {
+
+
+               $("#Origin_Geocomplete").geocomplete({
+                             map: ".map_canvas_Origin",
+                             details: "form",
+                             types: ["geocode", "establishment"]
+
+                           });
+
+           $("#Origin_Geocomplete").val($("#ordenes_servicio_OS_ORIGEN").val().toUpperCase()).trigger("geocode");
+           }
+
+
+    function LoadDestinationMap()
+      {
+            $("#Dest_Geocomplete").geocomplete({
+                        map: ".map_canvas_Destination",
+                        details: "form",
+                        types: ["geocode", "establishment"]
+                      });
+
+      $("#Dest_Geocomplete").val($("#ordenes_servicio_OS_DESTINO").val().toUpperCase()).trigger("geocode");
+
+
+ setTimeout(function(){
+        $("#ordenes_servicio_OS_DESTINO_LAT").val($("#txtLattitude").val());
+                      $("#ordenes_servicio_OS_DESTINO_LONG").val($("#txtlongitude").val());
+    },800);
+
+
+
+      }
+
+$(document).ready(function (){
+
+
+   $("#btnmanualTruck").click(function(){
+
+        $("#myModal").modal({
+
+            backdrop: 'static',
+
+            keyboard: false
+
+        });
+
+    });
+
+   $("#btn_cancelModal").click(function(){
+
+        $("#myModal").modal('hide');
+      });
+
+$("#ShowOS_FECHAPROGRAMADA").datepicker({
+      altField: '#ordenes_servicio_OS_FECHAPROGRAMADA',
+        minDate: 0,
+        dateFormat: "dd/mm/yy"
+
+    });
+
+EnableDisableServiceProgramada();
+$("#chk_SERVICIO_PROGRAMADO").change(function(){
+
+EnableDisableServiceProgramada();
+
+
+});
+
+$("#Asignar_GURA").change(function(){
+
+    AutoFillOperdorOnManualAssignment();
+
+  });
+
+
+$("#OS_NUM_CLIENTE").val($("#ordenes_servicio_PKCLIENTE").val());
+
+$("#ordenes_servicio_PKCLIENTE").change(function(){
+
+$("#OS_NUM_CLIENTE").val($("#ordenes_servicio_PKCLIENTE").val());
+
+});
+
+$("#OS_NUM_CLIENTE").change(function(){
+
+$("#ordenes_servicio_PKCLIENTE").val($("#OS_NUM_CLIENTE").val());
+
+});
+
+
+
+$("#btnSubmit_TruckAsssignment").click(function(e){
+   e.preventDefault();
+
+           var obj= $("#frmManualTruck_Assignment");
+
+
+
+            var isValid= obj.valid();
+              if (isValid==true) {
+               $("#ordenes_servicio_PKGRUA").val($("#Asignar_GURA").val());
+               $("#ordenesservicio_GRUA").val($("#Asignar_GURA option:selected ").text());
+
+               $("#ordenes_servicio_PKOPERADOR").val($("#OS_PKOPERADOR").val());
+               $("#ordenesservicio_OPERADOR").val($("#OS_OPERADOR").val());
+
+                 $("#ordenes_servicio_OS_TCOMPROMISO").val($("#OS_TIEMPO_COMPROMISO").val());
+
+                   $("#myModal").modal('hide');
+              }
+              else
+              {
+
+ obj.validate();
+              }
+
+});
+
+
+$("#ordenes_servicio_OS_TIPO_SERVICIO").change(function(){
+  ResetRules();
+});
+
+
+$('#tbl-price-list .qty').blur(function () {
+
+    var $tr = $(this).parents('tr');
+
+
+    if ($(this).length == 0 || !$(this).val() ) {
+
+    $(this).val('0.00');
+
+    }
+    CalculateAmount($tr);
+
+});
+
+$('#tbl-price-list .price').blur(function () {
+
+    var $tr = $(this).parents('tr');
+     if ($(this).length == 0 || !$(this).val() ) {
+
+    $(this).val('0.00');
+
+    }
+    CalculateAmount($tr);
+
+});
+$('#tbl-price-list .tax').blur(function () {
+
+    var $tr = $(this).parents('tr');
+     if ($(this).length == 0 || !$(this).val() ) {
+
+    $(this).val('0.00');
+
+    }
+    CalculateAmount($tr);
+
+});
+
+
+if ($("#ordenes_servicio_OS_TIPO_SERVICIO").val() =='TRASLADO')
+ {
+ValidateForTrasladoOrderService();
+
+
+}else
+{
+ValidateForNormalOrderService();
+}
+
+
+});
+function EnableDisableServiceProgramada(){
+
+ResetRules();
+ if ($("#chk_SERVICIO_PROGRAMADO").is(":checked")) {
+        $("#ShowOS_FECHAPROGRAMADA")
+            .removeAttr("disabled");
+            $("#ordenes_servicio_OS_PROGRAMADA").val('PROGRAMADA');
+    }
+    else {
+
+      $("#ordenes_servicio_OS_FECHAPROGRAMADA").val('');
+      $("#ShowOS_FECHAPROGRAMADA").val('');
+        $("#ShowOS_FECHAPROGRAMADA")
+            .attr("disabled", "disabled");
+
+             $("#ordenes_servicio_OS_PROGRAMADA").val('NORMAL');
+    }
+
+}
+
+
+function AutoFillOperdorOnManualAssignment(){
+  $.ajax({
+  type:"POST",
+  url:"/ordenes_servicios/GetOperadores",
+  dataType:"json",
+  data: {PKGURA: $("#Asignar_GURA").val()},
+  success:function(result){
+
+    if (result && result!= null) {
+
+
+      $("#OS_OPERADOR").val(result.OP_NOMBRE)
+      $("#OS_PKOPERADOR").val(result.PKOPERADOR)
+
+    }
+    else{
+
+      $("#OS_OPERADOR").val('')
+      $("#OS_PKOPERADOR").val('')
+    }
+
+  }
+})
+}
+
+
+function ResetRules(){
+
+          if ($("#ordenes_servicio_OS_TIPO_SERVICIO").val()=='TRASLADO') {
+            //  ResetRules();
+          ValidateForTrasladoOrderService();
+
+          }
+          else{
+          //ResetRules();
+          ValidateForNormalOrderService();
+          }
+
+
+}
+function ValidateForNormalOrderService(){
+
+var rules={
+            "ordenes_servicio[PKCLIENTE]": "required",
+             "ordenes_servicio[OS_AUTORIZACION]": "required",
+             "ordenes_servicio[OS_NOMBRE]": "required",
+             "ordenes_servicio[OS_TELEFONO]": "required",
+             "ordenes_servicio[PKTIPO_AUTO]": "required",
+             "ordenes_servicio[PKMARCA]": "required",
+             "ordenes_servicio[PKSUBMARCA]": "required",
+             "ordenes_servicio[PKCOLOR]": "required",
+             "ordenes_servicio[OS_PLACAS]": "required",
+             "ordenes_servicio[OS_MODELO]": "required",
+             "ordenes_servicio[OS_POLIZA]": "required",
+             "ordenes_servicio[OS_SINIESTRO]": "required",
+             "ordenes_servicio[OS_ASEGURADO]": "required",
+             "ordenes_servicio[OS_AJUSTADOR]": "required",
+             "ordenes_servicio[OS_ORIGEN]": "required",
+             "ordenes_servicio[OS_ORIGEN_LAT]": "required",
+              "ordenes_servicio[OS_ORIGEN_LONG]": "required",
+              "ordenes_servicio[OS_DESTINO]": "required",
+             "ordenes_servicio[OS_DESTINO_LAT]": "required",
+            "ordenes_servicio[OS_DESTINO_LONG]": "required",
+            "ordenes_servicio[OS_ESTADO]": "required",
+            "OS[NUM_CLIENTE]": "required",
+            // "ordenesservicio[GRUA]":"required",
+            // "ordenesservicio[OPERADOR]":"required",
+            // "ordenes_servicio[OS_TCOMPROMISO]":"required"
+
+        };
+
+
+   var messages= {
+             "ordenes_servicio[PKCLIENTE]": "Cliente Requerido",
+             "ordenes_servicio[OS_AUTORIZACION]": "Autorizacion Requerido",
+             "ordenes_servicio[OS_NOMBRE]": "Nombre Del Solicitante Requerido",
+             "ordenes_servicio[OS_TELEFONO]": "Telefono Del Solicitante Requerido",
+             "ordenes_servicio[PKTIPO_AUTO]": "Tipo de Vehiculo Requerido",
+             "ordenes_servicio[PKMARCA]": "Marca Requerido",
+             "ordenes_servicio[PKSUBMARCA]": "Submarca Requerido",
+             "ordenes_servicio[PKCOLOR]": "Color Requerido",
+             "ordenes_servicio[OS_PLACAS]": "Placas Requerido",
+             "ordenes_servicio[OS_MODELO]": "Modelo Requerido",
+             "ordenes_servicio[OS_POLIZA]": "Poliza Requerido",
+             "ordenes_servicio[OS_SINIESTRO]": "No. Siniestro Requerido",
+             "ordenes_servicio[OS_ASEGURADO]": "Aseguradad Requerido",
+             "ordenes_servicio[OS_AJUSTADOR]": "Ajustador Requerido",
+             "ordenes_servicio[OS_ORIGEN]": "Origen Requerido",
+             "ordenes_servicio[OS_ORIGEN_LAT]": "Latitud Requerido",
+             "ordenes_servicio[OS_ORIGEN_LONG]": "Longitud Requerido",
+             "ordenes_servicio[OS_DESTINO]": " Destino Requerido",
+             "ordenes_servicio[OS_DESTINO_LAT]": "Latitud Requerido",
+             "ordenes_servicio[OS_DESTINO_LONG]": "Longitud Requerido",
+             "ordenes_servicio[OS_ESTADO]":"Se requiere el estado del pedido.",
+             "OS[NUM_CLIENTE]":"Número de cliente es necesario.",
+            //  "ordenesservicio[GRUA]":"Vehical es necesario",
+            //  "ordenesservicio[OPERADOR]":"Operador es necesario",
+            //  "ordenes_servicio[OS_TCOMPROMISO]":"Se requiere un compromiso de tiempo"
+        };
+
+if($("#chk_SERVICIO_PROGRAMADO").is(":checked")) {
+
+  rules["ShowOS[FECHAPROGRAMADA]"] = "required";
+  messages["OS[TIEMPO_COMPROMISO]"] = "Tiempo Compromiso required";
+}
+
+if ($("#new_ordenes_servicio") && $("#new_ordenes_servicio").length>0)
+ {
+
+    var validation=$("#new_ordenes_servicio").validate({ ignore: "" });
+    validation.resetForm();
+    validation.settings.rules = rules;
+    validation.settings.messages = messages;
+    $.validator.setDefaults({ignore:[]});
+
+}
+else
+{
+   var validation=$("[id^=edit_ordenes_servicio]").validate({ ignore: "" });
+    validation.resetForm();
+    validation.settings.rules = rules;
+    validation.settings.messages = messages;
+    $.validator.setDefaults({ignore:[]});
+}
+
+}
+
+function ValidateForTrasladoOrderService(){
+var rules={
+             "ordenesservicio[GRUA]": "required",
+             "ordenesservicio[OPERADOR]": "required",
+             "ordenes_servicio[OS_TCOMPROMISO]": "required",
+             "ordenes_servicio[OS_AUTORIZACION]": "required",
+             "ordenes_servicio[OS_ORIGEN]": "required",
+             "ordenes_servicio[OS_ORIGEN_LAT]": "required",
+             "ordenes_servicio[OS_ORIGEN_LONG]": "required",
+             "ordenes_servicio[OS_DESTINO]": "required",
+             "ordenes_servicio[OS_DESTINO_LAT]": "required",
+             "ordenes_servicio[OS_DESTINO_LONG]": "required",
+             "ordenes_servicio[OS_ESTADO]": "required",
+             "OS[NUM_CLIENTE]": "required",
+        };
+   var messages= {
+           "ordenesservicio[GRUA]": "Grua Requerido",
+            "ordenesservicio[OPERADOR]": "Operador Requerido",
+            "ordenes_servicio[OS_TCOMPROMISO]": "Hr Compromiso Requerido",
+             "ordenes_servicio[OS_AUTORIZACION]": "Autorizacion Requerido",
+             "ordenes_servicio[OS_ORIGEN]": "Origen Requerido",
+             "ordenes_servicio[OS_ORIGEN_LAT]": "Latitud Requerido",
+            "ordenes_servicio[OS_ORIGEN_LONG]": "Longitud Requerido",
+            "ordenes_servicio[OS_DESTINO]": " Destino Requerido",
+            "ordenes_servicio[OS_DESTINO_LAT]": "Latitud Requerido",
+            "ordenes_servicio[OS_DESTINO_LONG]": "Longitud Requerido",
+            "ordenes_servicio[OS_DESTINO_LONG]": "Longitud Requerido",
+            "ordenes_servicio[OS_ESTADO]":"Se requiere el estado del pedido.",
+            "OS[NUM_CLIENTE]":"Número de cliente es necesario.",
+        };
+if($("#chk_SERVICIO_PROGRAMADO").is(":checked")) {
+
+  rules["ShowOS[FECHAPROGRAMADA]"] = "required";
+  messages["OS[TIEMPO_COMPROMISO]"] = "Tiempo Compromiso required";
+}
+if ($("#new_ordenes_servicio") && $("#new_ordenes_servicio").length>0)
+ {
+
+   var  validation=$("#new_ordenes_servicio").validate({ ignore: "" });
+    validation.resetForm();
+    validation.settings.rules = rules;
+    validation.settings.messages = messages;
+    $.validator.setDefaults({ignore:[]});
+}
+else
+{
+     var validation=$("[id^=edit_ordenes_servicio]").validate({ ignore: "" });
+     validation.resetForm();
+    validation.settings.rules = rules;
+    validation.settings.messages = messages;
+    $.validator.setDefaults({ignore:[]});
+}
+}
+
+//Change price and grand total on changing qty
+function CalculateAmount($tr)
+{
+
+ if ($tr.length > 0) {
+
+        var qty = parseInt($($tr).find('.qty').val());
+
+        var price = parseInt($tr.find('.price').val());
+        var tax = parseInt($tr.find('.tax').val());
+        var subtotal=qty*price;
+        var total=subtotal+tax;
+
+        $tr.find('.subtotal').val(subtotal.toFixed(2));
+        $tr.find('.total').val(total.toFixed(2));
+    }
+     CalculateGrandTotal();
+}
+//To get grand Total
+function CalculateGrandTotal() {
+    var grandTotal = 0;
+
+    $('#tbl-price-list tr').each(function () {
+        grandTotal = grandTotal + parseFloat($(this).find('.subtotal').length == 0 || !$(this).find('.subtotal').val() ? 0 : $(this).find('.subtotal').val())+
+        parseFloat($(this).find('.tax').length == 0 || !$(this).find('.tax').val() ? 0 : $(this).find('.tax').val());
+    });
+
+    $('#OS_IMPORTETotal').val(grandTotal.toFixed(2));
+}
+
+</script>

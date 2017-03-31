@@ -1,0 +1,1 @@
+json.array! @depositos_salidas, partial: 'depositos_salidas/depositos_salida', as: :depositos_salida

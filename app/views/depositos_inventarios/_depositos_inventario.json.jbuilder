@@ -1,0 +1,2 @@
+json.extract! depositos_inventario, :id, :PKINVENTARIO, :INV_NUMORDEN, :PKTIPO_AUTO, :INV_FDETENCION, :INV_LUGARDETENCION, :INV_FOLIODETENCION, :INV_MOTIVODETENCION, :INV_AUTORIDAD, :PKDEPOSITO, :PKMARCA, :PKSUBMARCA, :PKCOLOR, :INV_MODELO, :INV_NOSERIE, :INV_NOMOTOR, :INV_CONDICION, :INV_FINGRESO, :created_at, :updated_at
+json.url depositos_inventario_url(depositos_inventario, format: :json)

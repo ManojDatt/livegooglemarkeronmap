@@ -1,0 +1,15 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  ID: 1
+  PKLISTA: 1
+  PKCATEGORIA: 1
+  PKSERVICIO: 1
+  LIS_PRECIO: 9.99
+
+two:
+  ID: 1
+  PKLISTA: 1
+  PKCATEGORIA: 1
+  PKSERVICIO: 1
+  LIS_PRECIO: 9.99

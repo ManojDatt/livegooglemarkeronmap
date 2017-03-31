@@ -1,0 +1,1 @@
+json.partial! "configuraciones/configuracione", configuracione: @configuracione

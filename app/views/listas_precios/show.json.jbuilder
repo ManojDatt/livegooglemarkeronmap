@@ -1,0 +1,1 @@
+json.partial! "listas_precios/listas_precio", listas_precio: @listas_precio

@@ -1,0 +1,57 @@
+
+
+<!-- Main content -->
+<section class="content">
+  <div class="box-body">
+
+    <div class="row">
+     <div class="col-md-3">
+        <%= link_to 'Nuevo Registro', new_categorias_vehiculo_path, :class=>"btn btn-block btn-primary" %>
+      </div>
+    </div>
+
+     
+
+    <table id="example2" class="table table-bordered table-striped">
+      <thead>
+      <tr>
+        <th>CATEGORIA DEL VEHICULO</th>
+        <th> Acciones</th>
+      </tr>
+      </thead>
+
+      <tbody>
+   <% @categorias_vehiculos.each do |categorias_vehiculo| %>
+          <tr>
+            <td><%= categorias_vehiculo.CAT_DESCRIPCION %></td>
+           
+            <td>
+
+
+              <a class="btn btn-success btn-xs" href="<%= edit_categorias_vehiculo_path(categorias_vehiculo) %>" ><i class="fa fa-fw fa-edit"></i></a>
+              <%= link_to "<i class='fa fa-fw fa-close'></i>".html_safe, categorias_vehiculo, method: :delete, data: { confirm: 'Esta Seguro?' }, class:'btn btn-danger btn-xs' %>
+            </td>
+          </tr>
+      <% end %>
+      </tbody>
+    </table>
+
+  </div>
+</section>
+
+
+<script>
+    $(function () {
+
+        $('#example2').DataTable({
+            "paging": true,
+            "lengthChange": false,
+            "searching": true,
+            "ordering": true,
+            "info": true,
+            "autoWidth": false
+        });
+    });
+</script>
+
+

@@ -1,0 +1,106 @@
+<style type="text/css" media="screen">
+.map_canvas { float: left; height: 300px; width: 500px; }
+#geocomplete { width: 200px; }
+.map_canvas { width: 480px; height: 400px; margin: 10px 20px 10px 0; }
+.alert { margin-bottom: 0; padding: 0.5em;}
+</style>
+<div class="row">
+    <div class="col-md-2">
+        <input id="find" type="button" value="Mostrar en Mapa" class="btn btn-md btn-primary"/>
+        <!--  <input id="geocomplete" type="text" placeholder="Type in an address" value="India" /> -->
+    </div>
+    <div class="col-md-2">
+        <input id="geocomplete" type="text" placeholder="Type in an address" class="hide" value="guadalajara"/>
+    </div>
+    <div class="col-md-8">
+      <div class="alert alert-danger fade in" id="flash_error1">
+      <p style="font-size:13px;"> La dirección no se puede localizar en el mapa ! </p></div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="map_canvas"></div>
+    </div>
+</div>
+
+<script>
+    $(document).ready(function () {
+        // $("#cliente_DOMICILIO").geocomplete();
+        LoadMap();
+
+        $("#find").click(function () {
+            LoadMap();
+        });
+        $("#cliente_DOMICILIO, #cliente_COLONIA, #cliente_PKCIUDAD, #cliente_PKESTADO, #cliente_CP").bind("change keyup",function () {
+            LoadMap();
+        });
+
+    });
+
+    function LoadMap() {
+
+        $("#geocomplete").geocomplete({
+            map: ".map_canvas",
+            details: "form",
+            types: ["geocode", "establishment"],
+        });
+
+        var searchString = '';
+
+        var address = $("#cliente_DOMICILIO").val();
+        if (address && address.length > 0) {
+
+            searchString = address + ', '
+        }
+        var neighbrHood = $("#cliente_COLONIA").val();
+        if (neighbrHood && neighbrHood.length > 0) {
+
+            searchString = searchString + neighbrHood + ', '
+        }
+        var city = $("#cliente_PKCIUDAD option:selected").text();
+
+        if (city && city.length > 0) {
+
+            searchString = searchString + city + ', '
+        }
+
+        var state = $("#cliente_PKESTADO option:selected").text();
+
+        if (state && state.length > 0) {
+
+            searchString = searchString + state + ', '
+        }
+        var zip = $("#cliente_CP").val();
+
+        if (zip && zip.length > 0) {
+
+            searchString = searchString + zip+',';
+        }
+
+
+        if (searchString && searchString != '' && searchString.length > 0) {
+            searchString = searchString.substring(0, searchString.length - 1)
+            searchString = searchString.trimEnd(',');
+            // To check if the address is valid or not !
+            var geocoder = new google.maps.Geocoder();
+            geocoder.geocode({
+                 'address': searchString
+                  }, function (results, status) {
+                      if (status == google.maps.GeocoderStatus.OK) {
+                          var lng = results[0].geometry.location.lng();
+                          var lat = results[0].geometry.location.lat();
+                            $("#flash_error1").css({"display":"none"});
+                      } else {
+                        $("#flash_error1").removeAttr("style");
+                        // alert("La dirección no se puede localizar en el mapa !\n"+searchString);
+                      }
+                  });
+          // alert(searchString);
+        } else {
+            searchString = 'guadalajara';
+        }
+        $("#geocomplete").val(searchString.toUpperCase()).trigger("geocode");
+
+    }
+</script>

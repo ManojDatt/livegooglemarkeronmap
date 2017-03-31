@@ -1,0 +1,41 @@
+<section class="content">
+  <div class="box-body country-catlog">
+
+<%= form_for(role, :validate => true, html: {class: 'form-horizontal'}) do |f| %>
+  <% if role.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(role.errors.count, "error") %> prohibited this role from being saved:</h2>
+
+      <ul>
+      <% role.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+        <div class="row">
+          <div class="col-md-4">
+  <div class="field form-group">
+    <%= f.label :name %>
+    <%= f.text_field :name ,:class=>"form-control", :required=>"" %>
+  </div>
+          </div>
+        </div>
+
+        <div class="row">
+
+          <div class="col-md-12" style="text-align: right;">
+            <%= f.submit :class=>"btn btn-md btn-primary", :value=>"Guardar" %>
+             <%= link_to 'Cancelar', roles_path, :class=>"btn btn-md btn-default cancelbtn" %>
+
+          </div>
+         
+        </div>
+  <!--<div class="actions">-->
+    <!--<%= f.submit %>-->
+  <!--</div>-->
+<% end %>
+
+  </div>
+</section>

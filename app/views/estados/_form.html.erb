@@ -1,0 +1,133 @@
+
+<section class="content">
+  <div class="box-body">
+
+
+      <%= form_for(estado, :validate => true, html: {class: 'form-horizontal'}) do |f| %>
+         <% if estado.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(estado.errors.count, "error") %> prohibited this estado from being saved:</h2>
+
+      <ul>
+      <% estado.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+          <div class="row">
+            <div class="col-md-12" style="text-align: right;">
+              <%= f.submit :class=>"btn btn-md btn-primary", :value=>"Guardar" %>
+              <%= link_to 'Cancelar', estados_path, :class=>"btn btn-md btn-default cancelbtn" %>
+            </div>
+           
+          </div>
+        <div class="row">
+        <div class="col-md-6">
+          <div class="form-group">
+             <label>ESTADO</label>
+            <%= f.text_field :EDO_DESCRIPCION, :class=>"form-control" %>
+          </div>
+        </div>
+  
+          <div class="col-md-6">
+            &nbsp;
+          </div>
+        </div>
+
+        <div class="row">
+
+          <div class="col-md-3">
+            <div class="form-group">
+              <label>ABREVIATURA</label>
+            <%= f.text_field :ABREVIATURA, :class=>"form-control" %>
+            </div>
+          </div>
+
+          <div class="col-md-3 country-catlog-check">
+            <div class="form-group">
+
+          <div class="checkbox icheck">
+              <label>
+                <%= f.check_box :VALOR_OMISION %>
+                <%= f.label :Valor_por_Default %>
+              </label>
+            </div>
+            </div>
+          </div>
+           <div class="col-md-6">
+            &nbsp;
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-3">
+            <div class="form-group">
+               <label>PAIS </label>
+           <%= f.collection_select :PKPAIS, Pai.order(:PA_DESCRIPCION), :PKPAIS, :PA_DESCRIPCION, include_blank: true, class:"form-control" %>
+
+            </div>
+          </div>
+
+           <div class="col-md-9">
+            &nbsp;
+          </div>
+        </div>
+      <% end %>
+        <!-- /.row -->
+  </div>
+</section>
+<script type="application/javascript">
+  $(document).ready(function () {
+  $("#estado_PKPAIS").addClass("form-control");
+  });
+</script>
+
+<!-- 
+<%= form_for(estado) do |f| %>
+  <% if estado.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(estado.errors.count, "error") %> prohibited this estado from being saved:</h2>
+
+      <ul>
+      <% estado.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :PKPAIS %>
+
+    <%= f.collection_select :PKPAIS, Pai.order(:PA_DESCRIPCION), :PKPAIS, :PA_DESCRIPCION, include_blank: true %>
+
+  </div>
+
+
+
+  <div class="field">
+    <%= f.label :PKESTADO %>
+    <%= f.number_field :PKESTADO %>
+  </div>
+
+  <div class="field">
+    <%= f.label :EDO_DESCRIPCION %>
+    <%= f.text_area :EDO_DESCRIPCION %>
+  </div>
+
+  <div class="field">
+    <%= f.label :ABREVIATURA %>
+    <%= f.text_field :ABREVIATURA %>
+  </div>
+
+  <div class="field">
+    <%= f.label :VALOR_OMISION %>
+    <%= f.text_field :VALOR_OMISION %>
+  </div>
+
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>
+ -->

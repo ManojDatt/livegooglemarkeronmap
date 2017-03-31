@@ -1,0 +1,1 @@
+json.partial! "depositos_salidas/depositos_salida", depositos_salida: @depositos_salida

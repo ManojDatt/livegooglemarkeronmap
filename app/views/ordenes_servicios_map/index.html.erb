@@ -1,0 +1,148 @@
+<!-- Main content -->
+<style>
+#map_wrapper {
+    height: 400px;
+}
+
+#map_canvas {
+    width: 100%;
+    height: 100%;
+}
+</style>
+<section class="content">
+  <div class="box-body">
+
+    <div class="row">
+
+
+      <div class="col-md-2">
+         <%= link_to "Pendientes (#{ordens_count("ASIGNACION PENDIENTE")})","javascript:void(0)", class: "pedeint", id:"asigned" ,style:"color:#000;"%>
+         <!--  ordenes_servicios_map_index_path(:query => "ASIGNACION PENDIENTE") -->
+       </div>
+       <div class="col-md-2">
+          <%= link_to "Asignadas (#{ordens_count("ASIGNADA")})","javascript:void(0)", class: "pedeint", id:"togle_asigned", style:"color:#000;" %>
+      </div>
+      <div class="col-md-2 push-left">
+           <%= link_to "Traslado (#{ordens_count("TRASLADO")})","javascript:void(0)", class: "pedeint", id:"togle_trans", style:"color:#000;"%>
+      </div>
+
+       <div class="col-md-2">
+          <%= link_to '+ Nueva Orden', new_ordenes_servicio_path, :class=>"btn btn-sm btn-primary" %>
+        </div>
+
+       <div class="col-md-1 push-left">
+             <%= link_to "Ver Listado",ordenes_servicios_path, class: "btn btn-sm btn-primary", style:'color:#606b70'%>
+      </div>
+
+    </div>
+    <div class="col-md-12">
+      <div class="col-md-9">
+        <br>
+    <div id="map"></div>
+    </div>
+  <div class="col-md-3 post">
+
+
+    <table id="map_table_view" class="table table-bordered table-striped">
+      <thead>
+      <tr>
+        <th> Grua</th>
+         <th>Status</th>
+          <th> Orden</th>
+
+      </tr>
+      </thead>
+
+      <% @list_hash.each do |order_service|%>
+      <tr>
+        <td> <%=order_service['grua']%></th>
+         <td><%=order_service['status']%></th>
+          <td> <%=order_service['orden']%></th>
+
+      </tr>
+      <% end %>
+      <tbody>
+
+      </tbody>
+    </table>
+  </div>
+</div>
+  </div>
+</section>
+
+
+<script>
+  $(document).ready(function() {
+
+        $('#map_table_view').DataTable({
+          "paging": true,
+          "lengthChange": false,
+          "searching": true,
+          "ordering": true,
+          "info": false,
+          "autoWidth": false,
+    });
+    });
+
+console.log(JSON.stringify(<%=raw @ordenes_servicios1%>));
+</script>
+
+<style type="">
+.gm-style-iw table{width: 100% !important;margin-top: 20px !important;}
+.gm-style-iw table tbody td{margin: 0  !important; margin-right: 30px !important;}
+.gm-style-iw table tbody td:last-child {
+    margin-right: 0 !important;
+    float: right !important;
+    text-align: right;
+}
+.gm-style-iw table tbody td a.map_link{color: blue;background:none;}
+.gm-style-iw table tbody td a.map_link:hover{background: none;}
+</style>
+<%= render "map"%>
+<script type="text/javascript">
+function load()
+{
+setTimeout("window.open(self.location, '_self');", 60000);
+}
+$(document).ready(function(){
+  $("#asigned").click(function(){
+    var tgl = localStorage.getItem("toggle");
+    if(tgl==null || tgl=="off"){
+      localStorage.setItem("toggle", "on");
+      location.assign("ordenes_servicios_map?query=ASIGNACION+PENDIENTE");
+    }
+    if(tgl=="on")
+    {
+    localStorage.setItem("toggle", "off");
+    location.assign("ordenes_servicios_map");
+    }
+});
+
+$("#togle_asigned").click(function(){
+  var tgl1 = localStorage.getItem("toggle_assign");
+  if(tgl1==null || tgl1=="off"){
+    localStorage.setItem("toggle_assign", "on");
+    location.assign("ordenes_servicios_map?query=ASIGNADA");
+  }
+  if(tgl1=="on")
+  {
+  localStorage.setItem("toggle_assign", "off");
+  location.assign("ordenes_servicios_map");
+  }
+});
+
+$("#togle_trans").click(function(){
+  var tgl2 = localStorage.getItem("toggle_trans");
+  if(tgl2==null || tgl2=="off"){
+    localStorage.setItem("toggle_trans", "on");
+    location.assign("ordenes_servicios_map?query=TRASLADO");
+  }
+  if(tgl2=="on")
+  {
+  localStorage.setItem("toggle_trans", "off");
+  location.assign("ordenes_servicios_map");
+  }
+});
+});
+
+</script>

@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  PKCATEGORIA: 1
+  CAT_DESCRIPCION: MyString
+  CAT_NOTAS: MyString
+
+two:
+  PKCATEGORIA: 1
+  CAT_DESCRIPCION: MyString
+  CAT_NOTAS: MyString

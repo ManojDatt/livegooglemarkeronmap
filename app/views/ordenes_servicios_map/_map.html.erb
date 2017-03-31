@@ -1,0 +1,174 @@
+<!-- <%# map_marker_data =  map_data_for_order @ordenes_servicios %>
+<script type="text/javascript">
+  var locations = <%#=raw map_marker_data%>;
+  <%# if map_marker_data[0] %>
+  var lat = <%#= map_marker_data[0][1]%>;
+  var long =  <%#= map_marker_data[0][2]%>;
+  <%# else %>
+    var lat = 20.6739383;
+    var long = -103.4056257;
+  <% #end %>
+  var map = new google.maps.Map(document.getElementById('map'), {
+    zoom: 15,
+    center: new google.maps.LatLng(lat, long),
+    mapTypeId: google.maps.MapTypeId.ROADMAP
+  });
+
+  var infowindow = new google.maps.InfoWindow();
+
+  var marker, i;
+
+  for (i = 0; i < locations.length; i++) {
+      marker = new google.maps.Marker({
+      position: new google.maps.LatLng(locations[i][1], locations[i][2]),
+      map: map,
+      icon: locations[i][4],
+    });
+
+    google.maps.event.addListener(marker, 'click', (function(marker, i) {
+      return function() {
+        infowindow.setContent(locations[i][0]);
+        infowindow.open(map, marker);
+      }
+    })(marker, i));
+  }
+  // setTimeout(google.maps.event.trigger(map, 'resize'),3000);
+</script> -->
+
+<!-- ============================= test map ================================== -->
+<span class="hide" id="map_data_query"></span>
+<script>
+
+var locations = {}; //A repository for markers (and the data from which they were contructed).
+
+	//initial dataset for markers
+	var locs = jQuery.parseJSON(JSON.stringify(<%=raw @ordenes_servicios1%>));
+	var map = new google.maps.Map(document.getElementById('map'), {
+	    // zoom: 10,
+	    // maxZoom: 20,
+	    // minZoom: 1,
+	    streetViewControl: false,
+	    // center: new google.maps.LatLng(30, 30),
+	    mapTypeId: google.maps.MapTypeId.ROADMAP
+	});
+	var infowindow = new google.maps.InfoWindow();
+	var bounds = new google.maps.LatLngBounds();
+	function setMarkers(locObj) {
+	    $.each(locObj, function (key, loc) {
+					console.log(loc.remove);
+	        if (!locations[key] && loc.lat !== undefined && loc.lng !== undefined) {
+	            //Marker has not yet been made (and there's enough data to create one).
+
+	            //Create marker
+	            loc.marker = new google.maps.Marker({
+	                position: new google.maps.LatLng(loc.lat, loc.lng),
+	                map: map,
+                  icon: loc.icon
+	            });
+							//extend the bounds to include each marker's position
+  						bounds.extend(loc.marker.position);
+	            //Attach click listener to marker
+	            google.maps.event.addListener(loc.marker, 'click', (function (key) {
+	                return function () {
+	                    infowindow.setContent(locations[key].info);
+	                    infowindow.open(map, locations[key].marker);
+	                }
+	            })(key));
+
+	            //Remember loc in the `locations` so its info can be displayed and so its marker can be deleted.
+	            locations[key] = loc;
+	        } else if (locations[key] && loc.remove) {
+	            //Remove marker from map
+	            if (locations[key].marker) {
+	                locations[key].marker.setMap(null);
+	            }
+	            //Remove element from `locations`
+	            delete locations[key];
+	        } else if (locations[key]) {
+	            //Update the previous data object with the latest data.
+	            $.extend(locations[key], loc);
+	            if (loc.lat !== undefined && loc.lng !== undefined) {
+	                //Update marker position (maybe not necessary but doesn't hurt).
+	                locations[key].marker.setPosition(
+	                new google.maps.LatLng(loc.lat, loc.lng));
+	            }
+	            //locations[key].info looks after itself.
+	        }
+	    });
+	}
+	map.fitBounds(bounds);
+	var listener = google.maps.event.addListener(map, "idle", function () {
+    map.setZoom(10);
+    google.maps.event.removeListener(listener);
+});
+
+	var ajaxObj = { //Object to save cluttering the namespace.
+	    options: {
+	        url: "/service_order_map_data", //The resource that delivers loc data.
+	        dataType: "json" //The type of data tp be returned by the server.
+	    },
+	    delay: 10000, //(milliseconds) the interval between successive gets.
+	    errorCount: 0, //running total of ajax errors.
+	    errorThreshold: 5, //the number of ajax errors beyond which the get cycle should cease.
+	    ticker: null, //setTimeout reference - allows the get cycle to be cancelled with clearTimeout(ajaxObj.ticker);
+	    get: function () { //a function which initiates
+	        if (ajaxObj.errorCount < ajaxObj.errorThreshold) {
+	            ajaxObj.ticker = setTimeout(getMarkerData, ajaxObj.delay);
+	        }
+	    },
+	    fail: function (jqXHR, textStatus, errorThrown) {
+	        console.log(errorThrown);
+	        ajaxObj.errorCount++;
+	    }
+	};
+
+	//Ajax master routine
+	function getMarkerData() {
+			var url = $("#map_data_query").text();
+			console.log(url);
+			ajaxObj.options.url = url;
+	    $.ajax(ajaxObj.options)
+	        .done(setMarkers) //fires when ajax returns successfully
+	    .fail(ajaxObj.fail) //fires when an ajax error occurs
+	    .always(ajaxObj.get); //fires after ajax success or ajax error
+	}
+
+	setMarkers(locs); //Create markers from the initial dataset served with the document.
+	ajaxObj.get(); //Start the get cycle.
+
+	// *******************
+	//test: simulated ajax
+	// var testLocs = {
+	//     1: {
+	//         info: '1. New Random info and new position',
+	//         lat: -37,
+	//         lng: 124.9634
+	//     },
+	//     2: {
+	//         lat: 70,
+	//         lng: 14.5144
+	//     },
+	//     3: {
+	//         info: '3. New Random info'
+	//     },
+	//     4: {
+	//         remove: true
+	//     },
+	//     5: {
+	//         info: '55555. Added',
+	//         lat: -37,
+	//         lng: 0
+	//     }
+	// };
+	// setTimeout(function () {
+	//     setMarkers(testLocs);
+	// }, ajaxObj.delay);
+	setInterval(function () {
+	   if(document.URL.split("?")[1] != undefined){
+			 $("#map_data_query").text("/service_order_map_data?".concat(document.URL.split("?")[1]));
+		 }
+		 else{
+			 $("#map_data_query").text("/service_order_map_data");
+		 }
+	}, 2000);
+</script>

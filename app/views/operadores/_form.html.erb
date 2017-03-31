@@ -1,0 +1,199 @@
+
+
+<section class="content">
+  <div class="box-body">
+
+
+      <%= form_for(operadore, :validate => true, html: {class: 'form-horizontal'}) do |f| %>
+  <% if operadore.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(operadore.errors.count, "error") %> prohibited this operadores from being saved:</h2>
+
+      <ul>
+      <% operadore.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+ <div class="row">
+            <div class="col-md-12" style="text-align: right;">
+             <%= f.submit :class=>"btn btn-md btn-primary", :value=>"Guardar" %>
+              <%= link_to 'Cancelar', operadores_path, :class=>"btn btn-md btn-default cancelbtn" %>
+            </div>
+          
+  </div>
+
+
+           <div class="row">
+        <div class="col-md-3">
+          <div class="form-group">
+             <label>CLAVE</label>
+            <%= f.text_field :OP_CLAVE, :class=>"form-control", :maxlength=>20 %>
+          </div>
+        </div>
+
+        <div class="col-md-3">
+          <div class="form-group">
+             <label>STATUS</label>
+            <%= f.select :OP_ESTADO, options_for_select( [['Disponible','Disponible'],['Asignado','Asignado'],['Vacaciones','Vacaciones'],['Enfermedad','Enfermedad'],['Baja','Baja']], @operadore.OP_ESTADO) %>
+ 
+          </div>
+        </div>
+
+       
+
+        <div class="col-md-3">
+          <div class="form-group">
+             <label>FECHA DE INGRESO</label>
+
+              <%= text_field :ShowOP, :INGRESO, value: ((@operadore.OP_INGRESO).nil?)? "":@operadore.OP_INGRESO.strftime("%d/%m/%Y"), readonly: true, class: "form-control" %> 
+             <%= f.hidden_field :OP_INGRESO %>
+          </div>
+        </div>
+           
+          </div>
+
+        <div class="row">
+        <div class="col-md-9">
+          <div class="form-group">
+             <label>NOMBRE</label>
+            <%= f.text_field :OP_NOMBRE, :class=>"form-control" %>
+          </div>
+        </div>
+
+        <div class="col-md-3">
+          &nbsp;
+        </div>
+
+           
+          </div>
+
+             <div class="row">
+        <div class="col-md-9">
+          <div class="form-group">
+             <label>DIRECCION</label>
+            <%= f.text_field :OP_DOMICILIO, :class=>"form-control" %>
+          </div>
+        </div>
+
+        <div class="col-md-3">
+          &nbsp;
+        </div>
+
+           
+          </div>
+
+
+      <div class="row">
+        <div class="col-md-3">
+          <div class="form-group">
+             <label>NUM. CELULAR</label>
+            <%= f.text_field :OP_CEL_NUMERO, :class=>"form-control", onkeypress: "return isNumber(event)", :maxlength=>10%>
+          </div>
+        </div>
+
+        <div class="col-md-3">
+          <div class="form-group">
+             <label>SERIE CELULAR</label>
+            <%= f.text_field :OP_CEL_SERIE, :class=>"form-control", :maxlength=>20 %>
+          </div>
+        </div>
+
+        <div class="col-md-3">
+          <div class="form-group">
+             <label>NIP TOWCONTROL</label>
+            <%= f.text_field :OP_NIP, :class=>"form-control", :maxlength=>4  %>
+          </div>
+        </div>
+           
+          </div>
+  
+
+
+    <div class="row">
+        <div class="col-md-3">
+          <div class="form-group">
+             <label>TIPO LICENCIA FEDERAL</label>
+            <%= f.text_field :OP_TIPOLICFEDERAL, :class=>"form-control" , :maxlength=>20%>
+          </div>
+        </div>
+
+        <div class="col-md-3">
+          <div class="form-group">
+             <label>NUM. LIC FEDERAL</label>
+            <%= f.text_field :OP_LICFEDERAL, :class=>"form-control", :maxlength=>20 %>
+          </div>
+        </div>
+
+        <div class="col-md-3">
+          <div class="form-group">
+             <label>FECHA DE VENCIMIENTO</label>
+
+              <%= text_field :ShowOP, :VEN_LICFEDERAL, value: ((@operadore.OP_VEN_LICFEDERAL).nil?)? "":@operadore.OP_VEN_LICFEDERAL.strftime("%d/%m/%Y"), readonly: true, class: "form-control" %> 
+             <%= f.hidden_field :OP_VEN_LICFEDERAL %>
+          </div>
+        </div>
+           
+          </div>
+  
+ <div class="row">
+        <div class="col-md-3">
+          <div class="form-group">
+             <label>TIPO LICENCIA ESTATAL</label>
+            <%= f.text_field :OP_TIPOLICESTATAL, :class=>"form-control", :maxlength=>20 %>
+          </div>
+        </div>
+
+        <div class="col-md-3">
+          <div class="form-group">
+             <label>NUM. LIC ESTATAL</label>
+            <%= f.text_field :OP_LICESTATAL, :class=>"form-control", :maxlength=>20 %>
+          </div>
+        </div>
+
+        <div class="col-md-3">
+          <div class="form-group">
+             <label>FECHA DE VENCIMIENTO</label>
+               <%= text_field :ShowOP, :VENC_LICESTATAL, value: ((@operadore.OP_VENC_LICESTATAL).nil?)? "":@operadore.OP_VENC_LICESTATAL.strftime("%d/%m/%Y"), readonly: true, class: "form-control" %> 
+             <%= f.hidden_field :OP_VENC_LICESTATAL %>
+          </div>
+        </div>
+           
+          </div>
+      <% end %>
+
+  </div>
+</section>
+
+<script type="text/javascript">
+  $(document).ready(function () {
+  $("#operadore_OP_ESTADO").addClass("form-control");
+
+
+  $("#ShowOP_INGRESO").datepicker({ 
+      altField: '#operadore_OP_INGRESO',
+        minDate: 0,
+        dateFormat: "dd/mm/yy"
+       
+    });  
+
+   $("#ShowOP_VEN_LICFEDERAL").datepicker({ 
+      altField: '#operadore_OP_VEN_LICFEDERAL',
+        minDate: 0,
+        dateFormat: "dd/mm/yy"
+       
+    });  
+
+   $("#ShowOP_VENC_LICESTATAL").datepicker({ 
+      altField: '#operadore_OP_VENC_LICESTATAL',
+        minDate: 0,
+        dateFormat: "dd/mm/yy"
+       
+    });  
+
+  });
+
+  
+</script>

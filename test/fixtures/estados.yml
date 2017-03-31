@@ -1,0 +1,15 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  PKPAIS: 
+  PKESTADO: 1
+  EDO_DESCRIPCION: MyText
+  ABREVIATURA: MyString
+  VALOR_OMISION: 
+
+two:
+  PKPAIS: 
+  PKESTADO: 1
+  EDO_DESCRIPCION: MyText
+  ABREVIATURA: MyString
+  VALOR_OMISION: 

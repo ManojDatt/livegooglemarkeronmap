@@ -1,0 +1,67 @@
+ 
+
+<h1>Depositos Salidas</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Pkinventario</th>
+      <th>S cliente</th>
+      <th>S rfc</th>
+      <th>S fechapago</th>
+      <th>S metodopago</th>
+      <th>S forma de pago</th>
+      <th>S numcta</th>
+      <th>S domicilio</th>
+      <th>S noexterior</th>
+      <th>S nointerior</th>
+      <th>S colonia</th>
+      <th>S localidad</th>
+      <th>S municipio</th>
+      <th>S estado</th>
+      <th>S pais</th>
+      <th>S codigopostal</th>
+      <th>S numdias</th>
+      <th>S importediario</th>
+      <th>S subtotal</th>
+      <th>S iva</th>
+      <th>S total</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @depositos_salidas.each do |depositos_salida| %>
+      <tr>
+        <td><%= depositos_salida.PKINVENTARIO %></td>
+        <td><%= depositos_salida.S_CLIENTE %></td>
+        <td><%= depositos_salida.S_RFC %></td>
+        <td><%= depositos_salida.S_FECHAPAGO %></td>
+        <td><%= depositos_salida.S_METODOPAGO %></td>
+        <td><%= depositos_salida.S_FORMA_DE_PAGO %></td>
+        <td><%= depositos_salida.S_NUMCTA %></td>
+        <td><%= depositos_salida.S_DOMICILIO %></td>
+        <td><%= depositos_salida.S_NoExterior %></td>
+        <td><%= depositos_salida.S_NoInterior %></td>
+        <td><%= depositos_salida.S_Colonia %></td>
+        <td><%= depositos_salida.S_Localidad %></td>
+        <td><%= depositos_salida.S_Municipio %></td>
+        <td><%= depositos_salida.S_Estado %></td>
+        <td><%= depositos_salida.S_Pais %></td>
+        <td><%= depositos_salida.S_CodigoPostal %></td>
+        <td><%= depositos_salida.S_NumDias %></td>
+        <td><%= depositos_salida.S_ImporteDiario %></td>
+        <td><%= depositos_salida.S_SubTotal %></td>
+        <td><%= depositos_salida.S_IVA %></td>
+        <td><%= depositos_salida.S_Total %></td>
+        <td><%= link_to 'Show', depositos_salida %></td>
+        <td><%= link_to 'Edit', edit_depositos_salida_path(depositos_salida) %></td>
+        <td><%= link_to 'Destroy', depositos_salida, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Depositos Salida', new_depositos_salida_path %>

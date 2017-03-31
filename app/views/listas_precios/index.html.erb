@@ -1,0 +1,102 @@
+
+<!-- Main content -->
+<section class="content">
+  <div class="box-body">
+
+    <div class="row">
+      <div class="col-md-3">
+        <%= link_to 'Nuevo Registro', new_listas_precio_path, :class=>"btn btn-block btn-primary" %>
+      </div>
+    </div>
+
+     
+
+    <table id="example2" class="table table-bordered table-striped">
+      <thead>
+      <tr>
+        <th>NOMBRE DE LA LISTA DE PRECIOS</th>
+
+        <th>LISTA BASE</th>
+        <th> Acciones</th>
+      </tr>
+      </thead>
+
+      <tbody>
+      <% @listas_precios.each do |listas_precio| %>
+          <tr>
+            <td><%= listas_precio.LIS_DESCRIPCION %></td>
+
+            <td> <% if listas_precio.LIS_DEFAULT_TAR == 1 %>
+            
+              <input type="checkbox" checked="checked" />
+            <% else %>
+              <input type="checkbox"  />
+             
+           <%  end %>
+
+             </td>
+           
+            <td>
+
+
+              <a class="btn btn-success btn-xs" href="<%= edit_listas_precio_path(listas_precio) %>" ><i class="fa fa-fw fa-edit"></i></a>
+              <%= link_to "<i class='fa fa-fw fa-close'></i>".html_safe, listas_precio, method: :delete, data: { confirm: 'Esta Seguro?' }, class:'btn btn-danger btn-xs' %>
+            </td>
+          </tr>
+      <% end %>
+      </tbody>
+    </table>
+
+  </div>
+</section>
+
+
+<script>
+    $(function () {
+
+        $('#example2').DataTable({
+            "paging": true,
+            "lengthChange": false,
+            "searching": true,
+            "ordering": true,
+            "info": true,
+            "autoWidth": false
+        });
+    });
+</script>
+
+
+
+
+<!--  
+
+<h1>Listas Precios</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Pklista</th>
+      <th>Lis default tar</th>
+      <th>Lis descripcion</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @listas_precios.each do |listas_precio| %>
+      <tr>
+        <td><%= listas_precio.PKLISTA %></td>
+        <td><%= listas_precio.LIS_DEFAULT_TAR %></td>
+        <td><%= listas_precio.LIS_DESCRIPCION %></td>
+        <td><%= link_to 'Show', listas_precio %></td>
+        <td><%= link_to 'Edit', edit_listas_precio_path(listas_precio) %></td>
+        <td><%= link_to 'Destroy', listas_precio, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Listas Precio', new_listas_precio_path %>
+ -->

@@ -1,0 +1,29 @@
+ 
+
+<p>
+  <strong>Pkpais:</strong>
+  <%= @estado.PKPAIS %>
+</p>
+
+<p>
+  <strong>Pkestado:</strong>
+  <%= @estado.PKESTADO %>
+</p>
+
+<p>
+  <strong>Edo descripcion:</strong>
+  <%= @estado.EDO_DESCRIPCION %>
+</p>
+
+<p>
+  <strong>Abreviatura:</strong>
+  <%= @estado.ABREVIATURA %>
+</p>
+
+<p>
+  <strong>Valor omision:</strong>
+  <%= @estado.VALOR_OMISION %>
+</p>
+
+<%= link_to 'Edit', edit_estado_path(@estado) %> |
+<%= link_to 'Back', estados_path %>

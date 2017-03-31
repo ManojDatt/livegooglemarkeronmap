@@ -1,0 +1,15 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  PKINVENTARIO: 1
+  PKPERTENENCIA: 1
+  PER_CANTIDAD: 1
+  PER_DESCRIPCION: MyString
+  PER_CONDICION: MyString
+
+two:
+  PKINVENTARIO: 1
+  PKPERTENENCIA: 1
+  PER_CANTIDAD: 1
+  PER_DESCRIPCION: MyString
+  PER_CONDICION: MyString

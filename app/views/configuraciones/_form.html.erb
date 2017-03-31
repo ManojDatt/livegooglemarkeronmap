@@ -1,0 +1,55 @@
+<section class="content">
+  <div class="box-body">
+
+
+      <%= form_for(configuracione, :validate => true, html: {class: 'form-horizontal'}) do |f| %>
+          <% if configuracione.errors.any? %>
+              <div id="error_explanation">
+                <h2><%= pluralize(configuracione.errors.count, "error") %> prohibited this configuracion from being saved:</h2>
+
+                <ul>
+                  <% configuracione.errors.full_messages.each do |message| %>
+                      <li><%= message %></li>
+                  <% end %>
+                </ul>
+              </div>
+          <% end %>
+          <div class="row">
+          <div class="col-md-12" style="text-align: right;">
+           <%= f.submit :class=>"btn btn-md btn-primary", :value=>"Guardar" %>
+              <%= link_to 'Cancelar', configuraciones_path, :class=>"btn btn-md btn-default cancelbtn" %>
+            </div>
+            
+          </div>
+        <div class="row">
+<div class="col-md-3">
+  <div class="form-group">
+    <%= f.label :LLAVE %>
+    <%= f.text_field :Llave ,:class=>"form-control" %>
+  </div>
+</div>
+  <div class="col-md-3">
+    <div class="form-group">
+      <%= f.label :VALOR %>
+      <%= f.text_field :Valor ,:class=>"form-control" %>
+    </div>
+
+</div>
+          <div class="col-md-6">
+            &nbsp;
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-6">
+            <div class="form-group">
+              <%= f.label :DESCRIPCION %>
+              <%= f.text_area :Descripcion ,:class=>"form-control" %>
+            </div>
+          </div>
+        </div>
+      <% end %>
+        <!-- /.row -->
+  </div>
+</section>
+
+

@@ -1,0 +1,47 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  PKINVENTARIO: 1
+  S_CLIENTE: MyString
+  S_RFC: MyString
+  S_FECHAPAGO: 2017-02-16
+  S_METODOPAGO: MyString
+  S_FORMA_DE_PAGO: MyString
+  S_NUMCTA: MyString
+  S_DOMICILIO: MyString
+  S_NoExterior: MyString
+  S_NoInterior: MyString
+  S_Colonia: MyString
+  S_Localidad: MyString
+  S_Municipio: MyString
+  S_Estado: MyString
+  S_Pais: MyString
+  S_CodigoPostal: MyString
+  S_NumDias: 1
+  S_ImporteDiario: 
+  S_SubTotal: 
+  S_IVA: 
+  S_Total: 
+
+two:
+  PKINVENTARIO: 1
+  S_CLIENTE: MyString
+  S_RFC: MyString
+  S_FECHAPAGO: 2017-02-16
+  S_METODOPAGO: MyString
+  S_FORMA_DE_PAGO: MyString
+  S_NUMCTA: MyString
+  S_DOMICILIO: MyString
+  S_NoExterior: MyString
+  S_NoInterior: MyString
+  S_Colonia: MyString
+  S_Localidad: MyString
+  S_Municipio: MyString
+  S_Estado: MyString
+  S_Pais: MyString
+  S_CodigoPostal: MyString
+  S_NumDias: 1
+  S_ImporteDiario: 
+  S_SubTotal: 
+  S_IVA: 
+  S_Total: 

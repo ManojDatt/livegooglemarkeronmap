@@ -1,0 +1,128 @@
+
+
+<section class="content">
+  <div class="box-body">
+
+      <%= form_for(combustible, :validate => true, html: {class: 'form-horizontal'}) do |f| %>
+        <% if combustible.errors.any? %>
+          <div id="error_explanation">
+            <h2><%= pluralize(combustible.errors.count, "error") %> prohibited this combustibl from being saved:</h2>
+
+            <ul>
+            <% combustible.errors.full_messages.each do |message| %>
+              <li><%= message %></li>
+            <% end %>
+            </ul>
+          </div>
+      <% end %>
+          <div class="row">
+             <div class="col-md-12" style="text-align: right;">
+              <%= f.submit :class=>"btn btn-md btn-primary", :value=>"Guardar" %>
+              <%= link_to 'Cancelar', combustibles_path, :class=>"btn btn-md btn-default cancelbtn" %>
+            </div>
+           
+          </div>
+
+          <div class="row">
+          <div class="col-md-3">
+            <div class="form-group">
+               <label>FECHA INICIO</label>
+
+            <%= text_field :ShowCOM, :FINICIO, value: ((@combustible.COM_FINICIO).nil?)? "":@combustible.COM_FINICIO.strftime("%d/%m/%Y"), readonly: true, class: "form-control" %> 
+             <%= f.hidden_field :COM_FINICIO %>
+            </div>
+          </div>
+
+          <div class="col-md-3">
+            <div class="form-group">
+             
+            <label>FECHA FIN</label>
+             <%= text_field :ShowCOM, :FFIN, value:((@combustible.COM_FFIN).nil?)? "":@combustible.COM_FFIN.strftime("%d/%m/%Y"), readonly: true,class: "form-control" %> 
+             <%= f.hidden_field :COM_FFIN %>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+        <div class="col-md-6">
+          <div class="form-group">
+             <label>COMBUSTIBLE</label>
+          <%= f.select :COM_DESCRIPCION, options_for_select(['Magna','Premium','Diesel','Gas LP'].map{|o| [o.humanize,o] }, @combustible.COM_DESCRIPCION) %>
+
+          </div>
+        </div>
+  
+          <div class="col-md-6">
+            &nbsp;
+          </div>
+        </div>
+
+        
+
+        <div class="row">
+         <div class="col-md-4">
+            &nbsp;
+          </div>
+          <div class="col-md-2">
+            <div class="form-group">
+               <label>PRECIO </label>
+           <%= f.text_field :COM_PRECIO, :class=>"form-control onlyNumber", Min:1 %>
+            </div>
+          </div>
+         
+           <div class="col-md-6">
+            &nbsp;
+          </div>
+        </div>
+      <% end %>
+        <!-- /.row -->
+  </div>
+</section>
+<script type="application/javascript">
+    $(document).ready(function () {
+        $("#combustible_COM_DESCRIPCION").addClass("form-control");
+
+  //$j("#show_date").datepicker({altField: '#combustible_COM_FINICIO', altFormat: 'yy-mm-dd'});
+
+    $("#ShowCOM_FINICIO").datepicker({
+      altField: '#combustible_COM_FINICIO',
+        minDate: 0,
+        dateFormat: "dd/mm/yy",
+        //maxDate: "+60D",
+        //numberOfMonths: 2,
+        onSelect: function(selected) {
+    
+if (selected) {
+
+         var dateAr = selected.split('/');
+      var newDate = dateAr[2] + '/' + dateAr[1] + '/' + dateAr[0];
+
+        newDate=new Date(newDate);
+    
+            newDate.setDate(newDate.getDate() + 1);
+
+
+          $("#ShowCOM_FFIN").datepicker("option","minDate", newDate );
+}         
+
+    
+        }
+    });
+
+    $("#ShowCOM_FFIN").datepicker({ 
+      altField: '#combustible_COM_FFIN',
+        minDate: 0,
+        dateFormat: "dd/mm/yy",
+        //maxDate:"+60D",
+       // numberOfMonths: 2,
+        onSelect: function(selected) {
+           $("#ShowCOM_FINICIO").datepicker("option","maxDate", selected);
+        }
+    });  
+
+
+    })  ;
+   
+</script>
+
+
+

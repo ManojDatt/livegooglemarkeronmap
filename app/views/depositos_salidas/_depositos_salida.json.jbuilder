@@ -1,0 +1,2 @@
+json.extract! depositos_salida, :id, :PKINVENTARIO, :S_CLIENTE, :S_RFC, :S_FECHAPAGO, :S_METODOPAGO, :S_FORMA_DE_PAGO, :S_NUMCTA, :S_DOMICILIO, :S_NoExterior, :S_NoInterior, :S_Colonia, :S_Localidad, :S_Municipio, :S_Estado, :S_Pais, :S_CodigoPostal, :S_NumDias, :S_ImporteDiario, :S_SubTotal, :S_IVA, :S_Total, :created_at, :updated_at
+json.url depositos_salida_url(depositos_salida, format: :json)

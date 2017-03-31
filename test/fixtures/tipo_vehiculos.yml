@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  PKTIPO_AUTO: 1
+  TAUT_CATEGORIA: MyString
+  TAUT_DESCRIPCION: MyString
+
+two:
+  PKTIPO_AUTO: 1
+  TAUT_CATEGORIA: MyString
+  TAUT_DESCRIPCION: MyString

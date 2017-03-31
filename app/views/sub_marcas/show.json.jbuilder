@@ -1,0 +1,1 @@
+json.partial! "sub_marcas/sub_marca", sub_marca: @sub_marca

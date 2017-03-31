@@ -1,0 +1,1 @@
+json.partial! "tarifas_servicios/tarifas_servicio", tarifas_servicio: @tarifas_servicio

@@ -1,0 +1,2 @@
+class DepositosSalida < ApplicationRecord
+end

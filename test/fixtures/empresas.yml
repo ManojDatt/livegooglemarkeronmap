@@ -1,0 +1,33 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  PKEMPRESA: 1
+  EMP_NOMBRE_COMERCIAL: MyString
+  EMP_RAZON_SOCIAL: MyString
+  EMP_DIRECCION: MyString
+  EMP_COLONIA: MyString
+  EMP_CP: MyString
+  EMP_RFC: MyString
+  EMP_PKCIUDAD: 1
+  EMP_PKESTADO: 1
+  EMP_TEL1: MyString
+  EMP_TEL2: MyString
+  EMP_FAX: MyString
+  EMP_EMAIL: MyString
+  EMP_TIPO: 1
+
+two:
+  PKEMPRESA: 1
+  EMP_NOMBRE_COMERCIAL: MyString
+  EMP_RAZON_SOCIAL: MyString
+  EMP_DIRECCION: MyString
+  EMP_COLONIA: MyString
+  EMP_CP: MyString
+  EMP_RFC: MyString
+  EMP_PKCIUDAD: 1
+  EMP_PKESTADO: 1
+  EMP_TEL1: MyString
+  EMP_TEL2: MyString
+  EMP_FAX: MyString
+  EMP_EMAIL: MyString
+  EMP_TIPO: 1

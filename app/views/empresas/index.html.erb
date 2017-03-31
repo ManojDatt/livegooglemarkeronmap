@@ -1,0 +1,68 @@
+<!-- Main content -->
+<section class="content">
+  <div class="box-body">
+
+    <div class="row">
+      <div class="col-md-3">
+        <%= link_to 'Nuevo Registro', new_empresa_path, :class=>"btn btn-block btn-primary" %>
+      </div>
+    </div>
+
+     
+
+    <table id="example2" class="table table-bordered table-striped">
+      <thead>
+      <tr>
+        <th>RFC</th>
+          <th>NOMBRE COMERCIAL</th>
+            <th>TIPO EMPRESA</th>
+              <th>EMAIL</th>
+        <th> Acciones</th>
+      </tr>
+      </thead>
+
+      <tbody>
+     <% @empresas.each do |empresa| %>
+          <tr>
+            <td><%= empresa.EMP_RFC %></td>
+
+             <td><%= empresa.EMP_NOMBRE_COMERCIAL %></td>
+             
+
+ <td>
+
+<%= (empresa.EMP_TIPO == 1)?'Empresa del Grupo':(empresa.EMP_TIPO == 2)?'Empresa de Terceros': (empresa.EMP_TIPO == 3)?'Empresa con Subscripción':''  %>
+
+
+              </td>
+               <td><%= empresa.EMP_EMAIL %></td>
+           
+            <td>
+
+
+              <a class="btn btn-success btn-xs" href="<%= edit_empresa_path(empresa) %>" ><i class="fa fa-fw fa-edit"></i></a>
+              <%= link_to "<i class='fa fa-fw fa-close'></i>".html_safe, empresa, method: :delete, data: { confirm: 'Esta Seguro?' }, class:'btn btn-danger btn-xs' %>
+            </td>
+          </tr>
+      <% end %>
+      </tbody>
+    </table>
+
+  </div>
+</section>
+
+
+<script>
+    $(function () {
+
+        $('#example2').DataTable({
+            "paging": true,
+            "lengthChange": false,
+            "searching": true,
+            "ordering": true,
+            "info": true,
+            "autoWidth": false
+        });
+    });
+</script>
+

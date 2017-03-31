@@ -1,0 +1,2 @@
+module ListasPreciosHelper
+end
